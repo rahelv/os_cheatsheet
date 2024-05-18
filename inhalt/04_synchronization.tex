@@ -1,0 +1,40 @@
+\section*{Synchronization}
+Cooperating Processes execute concurrently, may be interrupted at any time and have access to shared data. Proper sequencing and coordination of processes is needed to maintain data consistency.
+% access: LAS or shared memory/message passing
+\subsection*{Race Conditions}
+\begin{itemize}
+    \item Execution outcome dependent on order of concurrent access to shared data
+        \item \textbf{examples:} counter in prod-consumer-problem, PID
+        \item \textbf{solutions:} disabling interrupts (single core vs. multiprocessors (time-consuming), affects system clock)
+        \item \textbf{preemptive kernel}: process preempted in kernel mode, most common. more responsive, suitable for real-time programming
+            % TODO: verstehen
+    \item \textbf{non-preemptive kernel}: uncommon, process blocks CPU
+\end{itemize}
+\subsection*{Critical Section Problem}
+\begin{itemize}
+    \item \textbf{critical section} is where a process accesses shared data
+    \item no two processes should be executing in their critical sections at the same time
+    \item \textbf{solution:} mutual exclusion, progress (selection cannot be postponed indefinitely), bounded waiting (limit on waiting)
+\end{itemize}
+\begin{description}
+    \item[Peterson's Solution] 2 processes, int turn, bool flag[2] shared, acquire \& lock, not guaranteed to work on modern computer architectures (requires atomic load/store, no instruction reordering)
+    \item[Mutex Lock] acquire() and release() lock (atomic), bool available (binary), require busy waiting (spinlock, no context switch required)
+    \item[Semaphores] integer variable, accesses through wait() and signal. busy wait \\
+        - \textbf{counting} (init to nr of resources available, decr. in wait) vs. \textbf{binary} semaphore (like mutex lock). \\
+        -  \textbf{implementation with suspension and waiting queues} %TODO:: S. 26ff
+    \item[Monitors] high level form of process sync. \\
+        - \textbf{condition variables} wait and signal on condition var.   \\
+        - \textbf{mutex locks}
+    \item[Priority Inversion] solution: \textbf{priority-inheritance protocol}: inherit higher priority until finished with resources %TODO: Definition  Priority Inversion
+    \item[Deadlock]: 2 or more processes are waiting indefinitely for an event that can be caused only by one of the waiting processes.
+\end{description}
+\subsection*{Examples}
+\begin{description}
+    \item[Bounded Buffer]
+    \item[Dining Philosophers]
+    \item[Synchronization within the Kernel]
+    \item[POSIX Sync]
+    \item[Alternative Approaches]
+\end{description}
+\subsection*{Deadlocks}
+% starvation
