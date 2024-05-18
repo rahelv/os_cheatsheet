@@ -1,0 +1,31 @@
+\documentclass[landscape,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=0mm,bottom=1mm,left=0mm,right=1mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+\usepackage{mathpartir}
+
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+\usepackage{amssymb} %% Definitions for math symbols.
+\usepackage{amsmath} %% Definitions for math symbols.
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=0pt,leftmargin=*}
+
+\input{inhalt/def}
+\begin{document}
+\begin{multicols*}{5}
+\fontsize{6pt}{5pt}\selectfont
+\input{inhalt/01_introduction}
+\input{inhalt/02_os_structures}
+\input{inhalt/03_processes}
+%\vfill\null
+%\columnbreak
+\end{multicols*}
+\end{document}
