@@ -11,7 +11,8 @@
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage{microtype}
 \usepackage{mathpartir}
-
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 \usepackage{enumitem}% http://ctan.org/pkg/enumitem
 \usepackage{amssymb} %% Definitions for math symbols.
 \usepackage{amsmath} %% Definitions for math symbols.
@@ -20,12 +21,14 @@
 
 \input{inhalt/def}
 \begin{document}
+\raggedright %%disable justification
 \begin{multicols*}{3}
 \fontsize{6pt}{5pt}\selectfont
 \input{inhalt/01_introduction}
 \input{inhalt/02_os_structures}
 \input{inhalt/03_processes}
 \input{inhalt/04_synchronization.tex}
+\input{inhalt/05_memory.tex}
 %\vfill\null
 %\columnbreak
 \end{multicols*}
