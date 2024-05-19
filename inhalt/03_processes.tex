@@ -1,4 +1,42 @@
 \section*{Process Management}
-\subsection*{Processes}
-\subsection*{}
+\begin{description}
+  \item[Process] Program loaded into memory, in execution
+  \item[Program] Passive entity stored on disk
+  \item[Process states] new, ready, running, waiting, terminated
+  \item[Process Control Block] Information about each proc.: proc. state, proc. number, PID, program counter, CPU registers, Mem.-management information (allocated memory for process), I/O status, CPU scheduling info (e.g. priority), Accounting info (e.g. CPU used)
+  \item[Context Switch] When CPU switches to another proc., save PCB of prev. proc., load PCB of new proc.
+\end{description}
 
+\subsection*{Processes Layout}
+\begin{description}
+  \item[Stack] temporary data: function parameters, return addresses, local variables
+  \item[Heap] dynamically Memory allocated during execution
+  \item[data] Global variables 
+  \item[text] executable code
+\end{description}
+
+\subsection*{Processes Layout}
+\begin{description}
+  \item[Process scheduler] Selects among available proc. in mem.
+  \item[Scheduling queue] OS maintains a ready and wait (i.e. waiting for I/O or for child termination or for interrupt to be serviced) queue.
+  \item[Short-term scheduler] Selects proc. which should be brought from ready queue to memory and allocates CPU. 
+  \item[Long-term scheduler] Selects proc. which should be brought from job pool (possibly on disk) to ready queue
+\end{description}
+
+\subsection*{Operations on processes}
+\begin{description}
+  \item[Process creation]Parent proc. creates child (fork()) which can create own children → tree structure, every proc. has a unique proc. identifier (pid). Either parent and child share all, a part or no resources.
+  \item[Process termination] Proc. delete themselves w/ exit(). Parent deletes child w/ abort(). Parent waits for child to end w/ wait(). child → \textbf{zombie} if child terminates w/o or before parent wait(), child → \textbf{orphan} if parent terminates.
+\end{description}
+
+\subsection*{Interprocess communication}
+\begin{description}
+  \item[Shared Memory]Communication is under control of user proc (not OS), proc. share mem. space. Issue: Producer-Consumer problem. 
+    % NOTE:producer-consumer problem defined in synchronization?
+  \item[Message passing] Communication controlled by OS, Messaging b/w proc without shared variables.
+  \item[Direct Message passing] A link is established b/w proc.They must name each other explicitly (send(P,message), receive(Q,message)). Only one communication link.
+  \item[Indirect message passing] Messages are sent and received from mailboxes (i.e. ports). May share several communication links
+  \item[Ordinary Pipe] Communication b/w parent and child, cannot be accessed from outside the proc. that created it. Have a read end (fd[1]) and write end (fd[0]). Exists until proc. completion.
+  \item[Named Pipe, FIFO] Several proc. can use pipe for communication. Exist until deleted. Appears as a file.
+  \item[Socket] Endpoint of communication between different machines, concatination of IP and port. Data is sent via packets.
+\end{description}
