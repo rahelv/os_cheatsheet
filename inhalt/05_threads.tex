@@ -1,0 +1,42 @@
+\section*{Threads}
+% \subsection*{}
+\begin{definition}
+  \item[Threads] A basic unit of CPU utilization, executed within process.  Shared with proc.: code, data, files. Private: registers, stack, PC and own copy of thread-local-storage (i.e. copy of static data)
+  \item[Multithreaded benefits] responsiveness, resource sharing easier than with processes, cheaper than process creation, lower overhead in context switching, scalability (even single process can take advantage)
+  \item[Multiprocess benefits] being isolated, are better suited for tasks that require a  higher degree of separation and security.  \end{definition}
+
+\subsection*{Multicore Programming}
+\begin{definition}
+  \item[Concurrency] More than one task making progress, tasks running out-of-order or in a partial order. (Software Parallelism)
+  \item[Parallelism] Requires Concurrency and implies system can run more than one task simultaneously on multiple cores/nodes. (Hardware Parallelism)
+  \item[Data Parallelism] distribute subsets of data across multiple cores, same operation on each core
+  \item[Task Parallelism]  Tasks across  multiple cores, each task running unique operation(s). 
+  \item[Hybrid Parallelism] Combination of task \& data parallelism
+  \item[Amdahl's Law] Speedup from N cores compared to 1 core w/ serial portion S: < 1 / (S + (1-S)/N
+\end{definition}
+
+\subsection*{Multithreading Models}
+\begin{definition}
+  \item[User threads (UT)] Threads in user space, which are not visible to kernel and managed without kernel support
+  \item[Kernel Threads (KT)] Supported and managed by OS kernel
+  \item[Many-to-One] Many UT mapped to one single KT. Not widely used, as one blocking UT blocks all UT and threads don't run in parallel
+  \item[One-to-One] Each UT maps to one KT (two-level-concurrency: threads in both user and kernel space are concurrent). Number of threads restricted due to causing overhead in kernel
+  \item[Many-to-Many] Many UT multiplexed to many KT.OS creates as many KT as needed. Because of newer CPUs with many threads, not that relevant anymore (starts to look like 1:1)
+  \item[Two-level-Model] Many-to-Many with one single One-to-One exception (which needs guaranteed level of service). 
+\end{definition}
+
+\subsection*{Implicit Threading}
+\begin{definition}
+  \item[Thread pool] Creation of a # of threads that can be assigned to tasks, creation overhead is reduced.
+  \item[Implicit Threading] Managing of threads by frameworks. Programmer only has to identify tasks
+\end{definition}
+
+\subsection*{Threading Issues}
+\begin{definition}
+\item[Semantics of fork() \& exec()] if thread invokes exec(), it replaces whole process with all threads. fork() sometimes duplicates process with all threads and sometimes only calling thread.
+  \item[Signal handling] (Signals are event based messages to a proc.)Problem: Where should a signal be delivered for a multithreaded proc.?Either same thread is informed (sync), all threads (async) or special signal thread
+  \item[Asynchronous cancellation] Thread terminates immediately
+  \item[Deferred cancellation] Thread periodically checks if it should terminate (recommended)
+  \item[Lightweight Process] A data structure between kernel and user threads to manage appropriate number of kernel threads allocated to app.
+  \item[Scheduler activations] provide upcalls - a communication mechanism from the kernel to the app, to inform the app about events.
+\end{definition}
