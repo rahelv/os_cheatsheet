@@ -7,6 +7,7 @@
   \item[Context Switch] When CPU switches to another proc., save PCB of prev. proc., load PCB of new proc.
 \end{description}
 
+\includegraphics[width=0.5\linewidth]{process_state.png}
 \subsection*{Processes Layout}
 \begin{description}
   \item[Stack] temporary data: function parameters, return addresses, local variables
@@ -15,13 +16,6 @@
   \item[text] executable code
 \end{description}
 
-\subsection*{Processes Layout}
-\begin{description}
-  \item[Process scheduler] Selects among available proc. in mem.
-  \item[Scheduling queue] OS maintains a ready and wait (i.e. waiting for I/O or for child termination or for interrupt to be serviced) queue.
-  \item[Short-term scheduler] Selects proc. which should be brought from ready queue to memory and allocates CPU. 
-  \item[Long-term scheduler] Selects proc. which should be brought from job pool (possibly on disk) to ready queue
-\end{description}
 
 \subsection*{Operations on processes}
 \begin{description}
