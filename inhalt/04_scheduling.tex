@@ -1,0 +1,38 @@
+\section*{Scheduling}
+\textbf{OS typically schedule threads and not processes}
+
+\subsection*{Basic concepts}
+\begin{description}
+  \item[Scheduling queue] OS maintains a ready and wait (i.e. waiting for I/O or for child termination or for interrupt to be serviced) queue.
+  \item[Short-term scheduler] Selects proc. which should be brought from ready queue to memory and allocates CPU time. 
+  \item[Long-term scheduler] Selects proc. which should be brought from job pool (possibly on disk) to ready queue
+  \item[Dispatcher] Component, which gives control of CPU to proc. Jobs: switching context, switching to user mode, jumping to proper location in program.
+  \item[Starvation] A process has little to no CPU-time
+  \item[Aging] The waiting time of a process is taken into account.
+\end{description}
+
+\subsection*{Scheduling Criteria}
+\begin{description}
+  \item[CPU utilization] $100 * cpu\_busy\_time / total\_time$
+  \item[Throughput] $number\_of\_finished\_processes/time\_unit$
+  \item[Turnaround time] Amount of time to complete a particular process: $waiting\_time+exec\_time+i\_o\_time$
+  \item[Waiting time] Amount of time a process is waiting in ready queue
+  \item[Response time] time it takes from when a request was submitted until first response is produced by proc. (e.g. web server handling request)
+\end{description}
+
+\subsection*{Scheduling Algorithms}
+\begin{description}
+  \item[First Come, First Served (FCFS)] Can lead to convoy effect, i.e. short processes waiting for long processes (starvation), which causes long avg. waiting time.
+  \item[Shortest-Job-First (SJF)] Length of CPU-burst estimated with previous CPU-bursts of proc. Is optimal, bc minimizes average waiting time.
+  \item[Shortest-remaining-time-first (SRFT)] SJF with preemption, i.e. when proc. arrives with shorter burst-time than current running one, then current proc. is stopped and new proc. can run.
+  \item[Priority scheduling (Prio)] Each process has fixed priority number. Lower number = higher priority. Higher priority first.
+  \item[Round Robin (RR)] FCFS with preemption. each proc. can run for max fixed time q (\textbf{quantum time}). if q large $\leadsto$ FCFS , q small $\leadsto$ Context switching overhead.
+  \item[Multilevel Queue Scheduling (MLQ)] Ready queue partitioned into separate ready queues. With each queue a priority number is associated. Each queue has own scheduling algorithm (e.g. foreground tasks with RR and background tasks with FCFS). A process is permanently in a given queue. If MQL preemptive $\leadsto$ starvation.
+  \item[Multilevel Feedback Queue (MLFQ)] Like MLQ, but processes can move between various queues (e.g. processes with short burst-time or long waiting-time go to higher-priority queues). This avoids starvation. MLFQ is the most general algorithm, since it can be configured in many ways.
+\end{description}
+
+\subsection*{Thread Scheduling}
+\begin{description}
+  \item[Process Contention Scope (PCS)] Competition for CPU time is  among threads within the same process. The user-level thread library schedules, OS not involved in scheduling.
+  \item[System Contention Scope (SCS)] Threads from different processes, as well as threads within the same process, compete for CPU time. OS is scheduling threads. OS using one-to-one mapping model schedule threads only using SCS.
+\end{description}
