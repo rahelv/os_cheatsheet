@@ -1,6 +1,35 @@
 \section*{File Systems}
+mechanism for storing and accessing data and programs. \textbf{Files} contain data, \textbf{Directory structure} organizes and stores information about files.
+\subsection*{Files}
+\textbf{OS View:}  named collection of related info, logical storage unit, \textbf{User View:}  smallest unit to store info in sec. storage.
 \begin{description}
-    \item[File System]mechanism for storing and accessing data and programs. \textbf{Files} contain data, \textbf{Directory structure} organizes and stores information about files.
-    \item[File]\textbf{OS View}  named collection of related info (\textbf{OS View}). smallest unit to store info in sec. storage (\textbf{User View})
-
+    \item[Attributes](symbolic) \textbf{Name}, \textbf{Identifier},  \textbf{Type} (only if OS supports diff. types), \textbf{Location} (pointer to device + location in device), \textbf{Size} (in bytes/words/blocks), \textbf{Timestamps}, \textbf{Protection} (r, w, m)
+    \item[Operations]: \textbf{Create}: 1. find space 2. make entry in dir. \textbf{Open}: 1. evaluate file name 2. check access permissions (all ops ex. create\& delete call open) \textbf{Write(filehandle, data to write) / Read(filehandle, pointer in memory to store data) }: keeps position pointer where next read/write must happen. 1 position pointer per process. \\
+    \textbf{Reposition / Seek}: changes position pointer, \textbf{Delete(dir, file name)}: releases allocated space, \textbf{Truncate}: erase contents of file
+    \item[Structures]: File types can indicate internal structure of files. (ex: ELF (executable and linkable file in Linux)), makes OS large and cumbersome
+    \item[Types - File extension]: extensions are used to indicate file types (ex: exe, c, xml, ... )
+\end{description}
+\textbf{Access Methods} Ways to retrieve/deal with information
+\begin{itemize}
+    \item \textbf{Sequential}: information processed in order (read\_next() or write\_next()), developed for tape
+    \item \textbf{Direct}: allow random access to any file block (file = sequence of records/blocks), developed for disk storage, read(n) or write(n) where n = block number
+    \item \textbf{Indexing}: index contains pointers to blocks, search for a record in the file in index. (index can be kept in memory for faster access)
+\end{itemize}
+\subsection*{Directory}
+collection of nodes containing information about all files. (symbol tables that translate file names into file control blocks)
+\begin{description}
+    \item[Operations]Search, Create, Delete, List, Rename, Traverse
+    \item[Structure] \textbf{Single-Level} one dir for all users (grouping and naming problems), \textbf{Two-Level} separate dir for each user (UFD, efficient search, no grouping), \textbf{Tree-based} efficient search, grouping, abs/rel paths \textbf{Acyclic-graph} easy \& good traversal algos, shared subdirs and files, need to guarantee no cycles, complicate searching and deletion \textbf{General Graph} allows cycles, requires garbage collection to recover unused disk space %TODO: explain Multiple user file dir, no cycles bf of possibility of infinite loop
+    \item[Memory Mapped Files] Map disk block (phys. memory) to page in virtual memory to directly access file on disk
+\end{description}
+\subsection*{Implementation}
+\begin{description}
+    \item[File System Structure]2 Problems: Define User View, Create Algorithms and Data Structures to map logical file system to physical secondary storage devices.\\
+        - \textbf{Disks}: rewritten in place, I/O transfers in units of blocks, direct access to any block of info. \\
+        - \textbf{NVM}: Non-volatile Memory \\
+    \item[Layered File System]\textbf{Application Programs} $\rightarrow$ \textbf{Logical File System} manages metadata and directory structure via \textit{FCB} (file-control blocks) $\rightarrow$ \textbf{File Organization Module} tracks files and their logical blocks, includes free-space manager $\rightarrow$ \textbf{Basic File System} issues generic (read, write blocks) commands to device driver $\rightarrow$ \textbf{I/O Control} device drivers and interrupt handlers, transfer information between mem and dev
+    \item[File-System Operations] %TODO: Weiter bei Implementation S. 8
+    \item[Directory Implementation]
+    \item[Allocation Methods]
+    \item[Free-Space Management]
 \end{description}
