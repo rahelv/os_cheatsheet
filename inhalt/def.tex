@@ -23,6 +23,9 @@ linecolor=gray,linewidth=1pt,%
 leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
 }
 
+\setlist{noitemsep, topsep=0pt,leftmargin=*} %format itemize etc.
+\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textcolor{blue}{\bfseries #1}} %format labels (\item[]) to be blue
+
 \makeatletter % Author: https://tex.stackexchange.com/questions/218587/how-to-set-one-header-for-each-page-using-multicols
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {.2ex}%
