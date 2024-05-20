@@ -27,9 +27,11 @@ collection of nodes containing information about all files. (symbol tables that 
     \item[File System Structure]2 Problems: Define User View, Create Algorithms and Data Structures to map logical file system to physical secondary storage devices.\\
         - \textbf{Disks}: rewritten in place, I/O transfers in units of blocks, direct access to any block of info. \\
         - \textbf{NVM}: Non-volatile Memory \\
-    \item[Layered File System]\textbf{Application Programs} $\rightarrow$ \textbf{Logical File System} manages metadata and directory structure via \textit{FCB} (file-control blocks) $\rightarrow$ \textbf{File Organization Module} tracks files and their logical blocks, includes free-space manager $\rightarrow$ \textbf{Basic File System} issues generic (read, write blocks) commands to device driver $\rightarrow$ \textbf{I/O Control} device drivers and interrupt handlers, transfer information between mem and dev
-    \item[File-System Operations] %TODO: Weiter bei Implementation S. 8
-    \item[Directory Implementation]
-    \item[Allocation Methods]
+    \item[Layered File System]\textbf{Application Programs} $\rightarrow$ \textbf{Logical File System} manages metadata and directory structure via \textit{FCB} $\rightarrow$ \textbf{File Organization Module} tracks files and their logical blocks, includes free-space manager $\rightarrow$ \textbf{Basic File System} issues generic (read, write blocks) commands to device driver $\rightarrow$ \textbf{I/O Control} device drivers and interrupt handlers, transfer information between mem and dev
+    \item[On-Storage Structures] (Control Blocks) \textbf{Boot CB}: per volume, contains info how to boot OS from that volume. can be empty. \textbf{Volume CB}: per volume, contains volume details (nr of blocks, size of blocks, free-block count and pointers.) \textbf{File CB}: per file, organizes file \textbf{Directory Structure} organize files  %Volume CB: superblock in UFS, NTSF stored in master fil table. FCB: permissions, dates (create, access, write), owners and groups, file size, data blocks TODO: add image
+    \item[Im-Memory Structures]: \textbf{Mount Table} info about mounted volumes \textbf{Dir-Structure Cache} info of recently accessed dirs \textbf{system-wide open-fil table} contains copy of FCB of each open file \textbf{per-process open-fil table} contains pointers to appropriate entries in sys-wide table \textbf{Buffers} hold FS-blocks %mounting a FS = making it accessible in the linux directory tree
+    %TODO: S. 10 (?) Implementation
+    \item[Directory Implementation] \textbf{Linear List} easy to program, time-consuming in execution (requires linear search). optimizations: sorted list (but requires sort), binary tree. \textbf{Hash Table} linear list with hash data structure, decreases search time. beware of collisions. fixed size. optimizations: chained-overflow hash table.
+    \item[Allocation Methods] \textbf{Contiguous} file occupies contiguous blocks on device. \textbf{Linked} \textbf{Indexed} %TODO: S. 16 - 20
     \item[Free-Space Management]
 \end{description}
