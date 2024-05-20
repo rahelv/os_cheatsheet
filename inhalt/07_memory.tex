@@ -20,7 +20,7 @@ MM is the only storage the CPU can access directly. \textbf{Speed:} CPU Register
     \textbf{Paging } PA can be noncontiguous, memory for P allocated wherever possible (no ex. fragmentation, but some internal $\rightarrow$ smaller pages eq. less int. frag but move overhead in page table). Physical memory is divided into fixed-size blocks called \textbf{frames}. Logical memory divided into same-sized blocks called \textbf{pages}.\\
         \begin{itemize}
             \item \textbf{Adress-Translation}: page number and page offset in the per-process page table
-                \includegraphics[width=0.5\linewidth]{05_paging.jpg} %TODO: modify image to include TLB
+                \includegraphics[width=0.4\linewidth]{05_paging.jpg} %TODO: modify image to include TLB
             \item OS keeps copy of each per-process page table + maintains frame table (for each physical frame)
             \item \textbf{Hardware Implementation}: per-process page table kept in main memory. \textbf{PTBR} page-table base register (pointers) \& \textbf{PTLR} page-table length register (size of page table)
             \item \textbf{Translation Lookaside Buffer TLB}: also called associative memory. hw cache for page table. (page nr, frame)
@@ -33,13 +33,3 @@ MM is the only storage the CPU can access directly. \textbf{Speed:} CPU Register
         \textbf{Swapping}: moving process temporarily out of memory to a \textit{backing store} and brought back for continued execution. (process roll out, roll in). system maintains ready queue. $\rightarrow$ transfer time too high, not used in modern OS  \\
 %TODO: hashed page tables, inverted page tables (if addresses expand beyond 32bits)
         \textbf{Swapping with Paging}: pages of a process instead of whole process swapped. (page in, page out)
-\subsection*{Virtual Memory}
-Abstracts main memory into an extremely large, uniform array of storage (LAS > PAS). Allows execution of partially-loaded programs. (more programs can run at the same time, increased CPU utilization \& throughput, no increase in reponse/turnaround time, less I/O needed to swap processes )
-\begin{description}
-    \item[Demand Paging]
-    \item[Copy-on-Write]
-    \item[Page Replacement]
-    \item[Allocation of Frames]
-    \item[Thrashing]
-    \item[OS Examples]
-\end{description}
