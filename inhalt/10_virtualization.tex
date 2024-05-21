@@ -8,7 +8,7 @@ Abstract the HW of a single computer (CPU, RAM, Storage) into different executio
     \item[Implementation of Hypervisors]:
         \begin{itemize}[label={}, labelsep=0pt]
         \item \textbf{Type 0}: HW-based solutions, support VM creation and management through \textit{firmware} (VMM itself is encoded in firmware and loaded at boot-time) %limited features bc HW
-        \item \textbf{Type 1}: OS-like software or OS's, VMM runs in kernel mode (ex: Windows HyperV, ..), common in data centers, move guests between systems (balance performance, efficiency), snapshots, cloning.
+        \item \textbf{Type 1}: OS-like software or OS's, VMM runs in kernel mode (ex: Windows HyperV, ..), common in data centers, live migrations (balance performance, efficiency), snapshots, cloning.
         \item \textbf{Type 2}: applications that run on standard OS (VMM is a process), limited hw feature exploitation. (ex: VirtualBox) %TODO: evt. add comparison picture type 1 & type 2
         \item \textbf{Emulators}: allow apps written in one system architecture to run on different system arch.
         \item \textbf{Programming Environment Virtualization}: no virtualization of real HW, but creation of optimized virtual system (ex: .NET, JVM)
@@ -24,12 +24,18 @@ Exact Duplicate of HW difficult to provide (esp. with dual-mode operation (kerne
     \item[Hardware Support]enables more stable, faster and feature rich virtualization. more CPU modes, hw support for Nested Page Tables, DMA, interrupts (ex: Intel VT-x, AMD: AMD-V)
 \end{description}
 \subsection*{Virtualization and OS Components}
+How do VMMs provide core OS-functions ?
 \begin{description}
-    \item[CPU Scheduling]
-    \item[Overcommitment]
-    \item[Memory Management]
-    \item[Storage Management]
-    \item[Live Migration]
+    \item[CPU Scheduling]VMM acts like multiprocessor system, schedules phys. CPU to VCPUs (using algos). %2 scenarios: enough CPUs, Overcommited, can cause clock drift
+    \item[Overcommitment]Guests are configured to use more CPUs/Memory than physically available.
+    \item[Memory Management] More Users of Memory $\rightarrow$ more pressure. Overcommitment common. VMM maintains \textbf{Nested Page Table} that translates guest page to real page table. (optimize without user knowing, own page-replacement-algos)
+    \item[Storage Management] need to provide boot disk \& general data access. (support many guests, so partitioning not sufficient)
+        \begin{itemize}[label={}, labelsep=0pt]
+            \item \textbf{Type 0}: store guest root disks \&config as disk image in FS provided by VMM
+            \item \textbf{Type 1}: store as files in FS provided by host OS %TODO: evt. mehr infos (S. 27)
+        \end{itemize}
+    \item[Live Migration]copy running guest to another system. (interesting: MAC must be movable (network). Limitations: Disks cannot be moved. (solve: make remote) \\
+    src connects to T(target) $\rightarrow$ T creates guest $\rightarrow$ send readonly pages $\rightarrow$ send read-write pages (clean) $\rightarrow$ send dirty pages (modified, repeatedly) $\rightarrow$ send VCPU's final state and start T $\rightarrow$ terminate source
 \end{description}
 \subsection*{Containerization}
 \begin{description}
