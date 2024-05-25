@@ -1,7 +1,7 @@
 \section*{Threads}
 % \subsection*{}
 \begin{description}
-  \item[Threads] A basic unit of CPU utilization, executed within P.  Shared with P: code, data, files. Private: registers, stack, PC and own copy of thread-local-storage (i.e. copy of static data)
+  \item[Threads] A basic unit of CPU utilization, executed within P.  Shared with P: code, data, files. Private: registers, stack, PC and own copy of T-local-storage (i.e. copy of static data)
   \item[Multithreaded benefits] responsiveness, resource sharing easier than with Ps, cheaper than P creation, lower overhead in context switching, scalability (even single P can take advantage)
   \item[Multiprocess benefits] being isolated, are better suited for tasks that require a  higher degree of separation and security.  \end{description}
 
@@ -17,26 +17,26 @@
 
 \subsection*{Multithreading Models}
 \begin{description}
-  \item[User threads (UT)] Threads in user space, which are not visible to kernel and managed without kernel support
+  \item[User threads (UT)] Ts in user space, which are not visible to kernel and managed without kernel support
   \item[Kernel Threads (KT)] Supported and managed by OS kernel
-  \item[Many-to-One] Many UT mapped to one single KT. Not widely used, as one blocking UT blocks all UT and threads don't run in parallel
-  \item[One-to-One] Each UT maps to one KT (two-level-concurrency: threads in both user and kernel space are concurrent). Number of threads restricted due to causing overhead in kernel
-  \item[Many-to-Many] Many UT multiplexed to many KT.OS creates as many KT as needed. Because of newer CPUs with many threads, not that relevant anymore (starts to look like 1:1)
+  \item[Many-to-One] Many UT mapped to one single KT. Not widely used, as one blocking UT blocks all UT and Ts don't run in parallel
+  \item[One-to-One] Each UT maps to one KT (two-level-concurrency: Ts in both user and kernel space are concurrent). Number of Ts restricted due to causing overhead in kernel
+  \item[Many-to-Many] Many UT multiplexed to many KT.OS creates as many KT as needed. Because of newer CPUs with many Ts, not that relevant anymore (starts to look like 1:1)
   \item[Two-level-Model] Many-to-Many with one single One-to-One exception (which needs guaranteed level of service).
 \end{description}
 
 \subsection*{Implicit Threading}
 \begin{description}
-  \item[Thread pool] Creation of a # of threads that can be assigned to tasks, creation overhead is reduced.
-  \item[Implicit Threading] Managing of threads by frameworks. Programmer only has to identify tasks
+  \item[Thread pool] Creation of a # of Ts that can be assigned to tasks, creation overhead is reduced.
+  \item[Implicit Threading] Managing of Ts by frameworks. Programmer only has to identify tasks
 \end{description}
 
 \subsection*{Threading Issues}
 \begin{description}
-\item[Semantics of fork() \& exec()] if thread invokes exec(), it replaces whole process with all threads. fork() sometimes duplicates process with all threads and sometimes only calling thread.
-  \item[Signal handling] (Signals are event based messages to a P) Problem: Where should a signal be delivered for a multithreaded P?Either same thread is informed (sync), all threads (async) or special signal thread
-  \item[Asynchronous cancellation] Thread terminates immediately
-  \item[Deferred cancellation] Thread periodically checks if it should terminate (recommended)
-  \item[Lightweight Process] A data structure between kernel and user threads to manage appropriate number of kernel threads allocated to app.
+\item[Semantics of fork() \& exec()] if T invokes exec(), it replaces whole process with all Ts. fork() sometimes duplicates process with all Ts and sometimes only calling T.
+  \item[Signal handling] (Signals are event based messages to a P) Problem: Where should a signal be delivered for a multithreaded P? Either same T is informed (sync), all Ts (async) or special signal T
+  \item[Asynchronous cancellation] T terminates immediately
+  \item[Deferred cancellation] T periodically checks if it should terminate (recommended)
+  \item[Lightweight Process] A data structure between kernel and user Ts to manage appropriate number of kernel Ts allocated to app.
   \item[Scheduler activations] provide upcalls - a communication mechanism from the kernel to the app, to inform the app about events.
 \end{description}

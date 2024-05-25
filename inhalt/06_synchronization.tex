@@ -1,14 +1,15 @@
 \section*{Synchronization}
-Cooperating P's execute concurrently, may be interrupted at any time and have access to shared data. Proper sequencing and coordination of Ps is needed to maintain data consistency.
+Cooperating P's: execute concurrently, may be interrupted, share data. Maintain data consistency through Sequencing and Coordination.
 % access: LAS or shared memory/message passing
 \subsection*{Race Conditions}
-Execution outcome dependent on order of concurrent access to shared data (ex: counter in p-c-prob, PID)
+Execution outcome dependent on order of concurrent access to shared data (ex: counter in prod-cons-prob, PID)
 \begin{description}
         \item[solutions:] disabling interrupts (single core vs. multiprocessors (time-consuming), affects system clock)
             % TODO: Linux protection against race conditions: atomic variables, spinlocks, mutex locks
         \item[preemptive kernel:] P preempted in kernel mode, most common. more responsive, suitable for real-time programming
         \item [non-preemptive kernel:] uncommon, P blocks CPU
 \end{description}
+
 \subsection*{Critical Section Problem}
 \begin{description}
     \item[critical section]is where a P accesses shared data (Structure: entry, critical, exit, remainder)
@@ -23,6 +24,7 @@ Execution outcome dependent on order of concurrent access to shared data (ex: co
         - \textbf{mutex locks}: acquire and release are procedures in monitor
     \item[Priority Inversion] low-prio P holds lock needed by high-prio P. solution: \textbf{priority-inheritance protocol}: inherit higher priority until finished with resources
 \end{description}
+
 \subsection*{Bounded Buffer in Producer-Consumer-Problem}
 Buffer with n slots, each can hold one item
 \begin{description}
@@ -30,10 +32,11 @@ Buffer with n slots, each can hold one item
     \item[- producer]wait(empty);wait(mutex); //produce signal(mutex);signal(full);
     \item[- consumer]wait(full);wait(mutex) //consume signal(mutex);signal(empty);
 \end{description}
+
 \subsection*{Dining Philosophers}
 Allocate several resources among several Ps in a DL- and starvation-free manner. ex: 5 ph, 5 forks, 3 states (thinking, hungry, eating). Init: 1 data set (bowl of rise), chopstick[5], initialized to 1 (available).
 \begin{description}
-    \item[]remove one ph %TODO: why?
+    \item[Simplest Solution] remove one ph %TODO: why?
     \item[Asymmetric Solution] odd/even pick up chopsticks asymmetrically
     \item[Monitor Solution]cond.var self[5], fun test(i) if hungry \& neighbours not eating $\rightarrow$ self[i].signal() \\
         - \textit{pickup(i)} set i to hungry, call test(i). if not eating afterwards, self[i].wait() \\
@@ -41,9 +44,11 @@ Allocate several resources among several Ps in a DL- and starvation-free manner.
         (starvation (requirement 3) still possible, can be solved by introducting time restriction)
 \end{description}
     %TODO: S. 19 und 20 \subsection*{Synchronization within the Kernel}
+
 \subsection*{POSIX Synchronization}
     \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple P's) and unnamed (need to be placed in shared memory) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
     %TODO: S. 26 OpenMP
+
 \subsection*{Deadlocks}
 \begin{description}
     \item[Deadlock]2 or more P's are waiting indefinitely for an event that can be caused only by one of the waiting Ps. 4 conditions: \textbf{Mutual exclusion}, \textbf{Hold and wait} P that holds min. 1 res waits for another res. \textbf{No preemption} res can only be released voluntarily by P holding it. \textbf{Circular Wait} Cycle in res-alloc graph
