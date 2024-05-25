@@ -27,8 +27,8 @@ Exact Duplicate of HW difficult to provide (esp. with dual-mode operation (kerne
 How do VMMs provide core OS-functions ?
 \begin{description}
     \item[CPU Scheduling]VMM acts like multiprocessor system, schedules phys. CPU to VCPUs (using algos). %2 scenarios: enough CPUs, Overcommited, can cause clock drift
-    \item[Overcommitment]Guests are configured to use more CPUs/Memory than physically available.
-    \item[Memory Management] More Users of Memory $\rightarrow$ more pressure. Overcommitment common. VMM maintains \textbf{Nested Page Table} that translates guest page to real page table. (optimize without user knowing, own page-replacement-algos)
+    \item[Overcommitment]Guests are configured to use more CPUs/Mem than physically available.
+    \item[Memory Management] More Users of Mem $\rightarrow$ more pressure. Overcommitment common. VMM maintains \textbf{Nested Page Table} that translates guest page to real page table. (optimize without user knowing, own page-replacement-algos)
     \item[Storage Management] need to provide boot disk \& general data access. (support many guests, so partitioning not sufficient)
         \begin{itemize}[label={}, labelsep=0pt]
             \item \textbf{Type 0}: store guest root disks \&config as disk image in FS provided by VMM

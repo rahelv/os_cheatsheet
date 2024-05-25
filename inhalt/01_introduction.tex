@@ -3,7 +3,7 @@
   \item[OS] Program b/w user \& HW, executes user programs, gives convinient usage, ensures efficient use of HW.
   \item[OS Services] user interface; prog execution; I/O operations; file-system manipulation; communication between Ps; error detection; res alloc; accounting – who uses how much of what; protection and security
     \item[System Call Interface] Programming Interface to services provided by OS written in high-level lang (C or C++), below user interface. Each system call associated with a number, sys. call interface maintains a table of those numbers, calls Kernel to execute and returns status and output.
-  \item[Direct Memory access] Load data from/to I/O devices (e.g SSD) directly to/from main memory without involving CPU.
+  \item[Direct Memory access] Load data from/to I/O devices (e.g SSD) directly to/from main mem without involving CPU.
   \item[Interrupt] request for the processor to interrupt currently executing code. The processor will suspend current activities, save its state and execute a function called \textbf{Interrupt Service Routine} which function address is accessed by \textbf{Interrupt Vector}. OS is interrupt driven.
   \item[Trap, Exception] Software-generated interrupt. Caused by software error, system call, other process problems.
   \item[OS data structures] OS needs Lists, stacks queues, trees, maps
@@ -14,14 +14,14 @@
   \item[Generic Approach] Each processor performs all (types of) tasks. OS shared among CPUs, each CPU has local private copy of OS data structures.
   \item[Asymmetric MP] Each processor is assigned a special task. Master CPU runs OS, other Slave CPUs run user processes.
   \item[Symmetric MP] Each processor performs all (types of) tasks. OS shared among CPUs.
-  \item[Non-Uniform Memory Access (NUMA)] Interconnected CPUs each with private memory. They logically share one physical memory space.
+  \item[Non-Uniform Memory Access (NUMA)] Interconnected CPUs each with private mem. They logically share one physical mem space.
   \item[Clustered Systems] Like MP, but multiple computers working together. Linked via some kind of network (e.g LAN).
 \end{description}
 
 \subsection*{OS Operations}
 \begin{description}
   \item[Bootstrap Program] Initializes system, loads OS kernel and starts execution at power-up.
-  \item[Batch System, Multiprogramming] multiple P's in mem.; CPU changes P when waiting (for I/O)
+  \item[Batch System, Multiprogramming] multiple P's in mem; CPU changes P when waiting (for I/O)
   \item[Timesharing, Multitasking]  fast switching between P's; interactive; illusion of concurrency
   \item[Dual-Mode] User mode, kernel mode. Goal: distinguish whether system is running user or kernel code with a HW provided \textbf{Mode bit}; some instructions
 privileged, only in kernel mode; sys. call changes mode to kernel; return from call resets it to user

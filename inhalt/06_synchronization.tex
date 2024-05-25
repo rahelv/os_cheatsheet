@@ -1,6 +1,6 @@
 \section*{Synchronization}
 Cooperating P's: execute concurrently, may be interrupted, share data. Maintain data consistency through Sequencing and Coordination.
-% access: LAS or shared memory/message passing
+% access: LAS or shared mem/message passing
 \subsection*{Race Conditions}
 Execution outcome dependent on order of concurrent access to shared data (ex: counter in prod-cons-prob, PID)
 \begin{description}
@@ -46,7 +46,7 @@ Allocate several resources among several Ps in a DL- and starvation-free manner.
     %TODO: S. 19 und 20 \subsection*{Synchronization within the Kernel}
 
 \subsection*{POSIX Synchronization}
-    \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple P's) and unnamed (need to be placed in shared memory) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
+    \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple P's) and unnamed (need to be placed in shared mem) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
     %TODO: S. 26 OpenMP
 
 \subsection*{Deadlocks}
