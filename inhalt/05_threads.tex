@@ -1,8 +1,8 @@
 \section*{Threads}
 % \subsection*{}
 \begin{description}
-  \item[Threads] A basic unit of CPU utilization, executed within process.  Shared with proc.: code, data, files. Private: registers, stack, PC and own copy of thread-local-storage (i.e. copy of static data)
-  \item[Multithreaded benefits] responsiveness, resource sharing easier than with processes, cheaper than process creation, lower overhead in context switching, scalability (even single process can take advantage)
+  \item[Threads] A basic unit of CPU utilization, executed within P.  Shared with P: code, data, files. Private: registers, stack, PC and own copy of thread-local-storage (i.e. copy of static data)
+  \item[Multithreaded benefits] responsiveness, resource sharing easier than with Ps, cheaper than P creation, lower overhead in context switching, scalability (even single P can take advantage)
   \item[Multiprocess benefits] being isolated, are better suited for tasks that require a  higher degree of separation and security.  \end{description}
 
 \subsection*{Multicore Programming}
@@ -34,7 +34,7 @@
 \subsection*{Threading Issues}
 \begin{description}
 \item[Semantics of fork() \& exec()] if thread invokes exec(), it replaces whole process with all threads. fork() sometimes duplicates process with all threads and sometimes only calling thread.
-  \item[Signal handling] (Signals are event based messages to a proc.)Problem: Where should a signal be delivered for a multithreaded proc.?Either same thread is informed (sync), all threads (async) or special signal thread
+  \item[Signal handling] (Signals are event based messages to a P) Problem: Where should a signal be delivered for a multithreaded P?Either same thread is informed (sync), all threads (async) or special signal thread
   \item[Asynchronous cancellation] Thread terminates immediately
   \item[Deferred cancellation] Thread periodically checks if it should terminate (recommended)
   \item[Lightweight Process] A data structure between kernel and user threads to manage appropriate number of kernel threads allocated to app.

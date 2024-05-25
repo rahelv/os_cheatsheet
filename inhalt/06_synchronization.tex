@@ -1,25 +1,25 @@
 \section*{Synchronization}
-Cooperating Processes execute concurrently, may be interrupted at any time and have access to shared data. Proper sequencing and coordination of processes is needed to maintain data consistency.
+Cooperating P's execute concurrently, may be interrupted at any time and have access to shared data. Proper sequencing and coordination of Ps is needed to maintain data consistency.
 % access: LAS or shared memory/message passing
 \subsection*{Race Conditions}
 Execution outcome dependent on order of concurrent access to shared data (ex: counter in p-c-prob, PID)
 \begin{description}
         \item[solutions:] disabling interrupts (single core vs. multiprocessors (time-consuming), affects system clock)
             % TODO: Linux protection against race conditions: atomic variables, spinlocks, mutex locks
-        \item[preemptive kernel:] process preempted in kernel mode, most common. more responsive, suitable for real-time programming
-        \item [non-preemptive kernel:] uncommon, process blocks CPU
+        \item[preemptive kernel:] P preempted in kernel mode, most common. more responsive, suitable for real-time programming
+        \item [non-preemptive kernel:] uncommon, P blocks CPU
 \end{description}
 \subsection*{Critical Section Problem}
 \begin{description}
-    \item[critical section]is where a process accesses shared data (Structure: entry, critical, exit, remainder)
+    \item[critical section]is where a P accesses shared data (Structure: entry, critical, exit, remainder)
     \item[solution:]mutual exclusion (no 2 P in CS at the same time), progress (selection cannot be postponed indefinitely), bounded waiting (limit on waiting $\rightarrow$ Starvation)
-    \item[Peterson's Solution]2 processes, int turn, bool flag[2] shared, acquire \& lock, not guaranteed to work on modern computer architectures (requires atomic load/store, no instruction reordering)
+    \item[Peterson's Solution]2 Ps, int turn, bool flag[2] shared, acquire \& lock, not guaranteed to work on modern computer architectures (requires atomic load/store, no instruction reordering)
     \item[Mutex Lock] acquire() and release() lock (atomic), bool available (binary), require busy waiting (spinlock, no context switch required)
     \item[Semaphores] integer variable, accessed through wait() and signal(). busy wait \\
         - \textbf{counting} (init to nr of resources available, decr. in wait) vs. \textbf{binary} semaphore (like mutex lock). \\
-        -  \textbf{implementation with suspension and waiting queues} instead of busy waiting S suspends itself, each semaphore has associated waiting queue. signal() removes one process from list and awakens it.   %TODO: add code example
-    \item[Monitors] high level form of process sync. (ADT, internal vars only acessible within procedures) \\
-        - \textbf{condition variables} wait (suspends process) and signal (tells process to resume/condition could have changed) on condition var. \\
+        -  \textbf{implementation with suspension and waiting queues} instead of busy waiting S suspends itself, each semaphore has associated waiting queue. signal() removes one P from list and awakens it.   %TODO: add code example
+    \item[Monitors] high level form of P sync. (ADT, internal vars only acessible within procedures) \\
+        - \textbf{condition variables} wait (suspends P) and signal (tells P to resume/condition could have changed) on condition var. \\
         - \textbf{mutex locks}: acquire and release are procedures in monitor
     \item[Priority Inversion] low-prio P holds lock needed by high-prio P. solution: \textbf{priority-inheritance protocol}: inherit higher priority until finished with resources
 \end{description}
@@ -31,7 +31,7 @@ Buffer with n slots, each can hold one item
     \item[- consumer]wait(full);wait(mutex) //consume signal(mutex);signal(empty);
 \end{description}
 \subsection*{Dining Philosophers}
-Allocate several resources among several processes in a DL- and starvation-free manner. ex: 5 ph, 5 forks, 3 states (thinking, hungry, eating). Init: 1 data set (bowl of rise), chopstick[5], initialized to 1 (available).
+Allocate several resources among several Ps in a DL- and starvation-free manner. ex: 5 ph, 5 forks, 3 states (thinking, hungry, eating). Init: 1 data set (bowl of rise), chopstick[5], initialized to 1 (available).
 \begin{description}
     \item[]remove one ph %TODO: why?
     \item[Asymmetric Solution] odd/even pick up chopsticks asymmetrically
@@ -42,11 +42,11 @@ Allocate several resources among several processes in a DL- and starvation-free 
 \end{description}
     %TODO: S. 19 und 20 \subsection*{Synchronization within the Kernel}
 \subsection*{POSIX Synchronization}
-    \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple processes) and unnamed (need to be placed in shared memory) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
+    \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple P's) and unnamed (need to be placed in shared memory) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
     %TODO: S. 26 OpenMP
 \subsection*{Deadlocks}
 \begin{description}
-    \item[Deadlock]2 or more processes are waiting indefinitely for an event that can be caused only by one of the waiting processes. 4 conditions: \textbf{Mutual exclusion}, \textbf{Hold and wait} P that holds min. 1 res waits for another res. \textbf{No preemption} res can only be released voluntarily by P holding it. \textbf{Circular Wait} Cycle in res-alloc graph
+    \item[Deadlock]2 or more P's are waiting indefinitely for an event that can be caused only by one of the waiting Ps. 4 conditions: \textbf{Mutual exclusion}, \textbf{Hold and wait} P that holds min. 1 res waits for another res. \textbf{No preemption} res can only be released voluntarily by P holding it. \textbf{Circular Wait} Cycle in res-alloc graph
     \item[Resource-Allocation Graph] Cycle necessary \& sufficient condition, only a possibility if several instances%TODO: add picture
     \item[Handling Deadlocks]\textbf{1}. Ensure that sys never enters DL: DL prevention/avoidance ( allow res-alloc only if no DL could happen) \textbf{2}. Allow DL, detect and recover from it. \textbf{3}. Ignore DLs (approach of most OS, user is responsible)
     \item[Deadlock Prevention]: Eliminate at least 1 cond (only D4 practical to eliminate) \\

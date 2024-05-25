@@ -9,7 +9,7 @@ Abstract the HW of a single computer (CPU, RAM, Storage) into different executio
         \begin{itemize}[label={}, labelsep=0pt]
         \item \textbf{Type 0}: HW-based solutions, support VM creation and management through \textit{firmware} (VMM itself is encoded in firmware and loaded at boot-time) %limited features bc HW
         \item \textbf{Type 1}: OS-like software or OS's, VMM runs in kernel mode (ex: Windows HyperV, ..), common in data centers, live migrations (balance performance, efficiency), snapshots, cloning.
-        \item \textbf{Type 2}: applications that run on standard OS (VMM is a process), limited hw feature exploitation. (ex: VirtualBox) %TODO: evt. add comparison picture type 1 & type 2
+        \item \textbf{Type 2}: applications that run on standard OS (VMM is a P), limited hw feature exploitation. (ex: VirtualBox) %TODO: evt. add comparison picture type 1 & type 2
         \item \textbf{Emulators}: allow apps written in one system architecture to run on different system arch.
         \item \textbf{Programming Environment Virtualization}: no virtualization of real HW, but creation of optimized virtual system (ex: .NET, JVM)
         \item \textbf{Paravirtualization}: avoids causing traps by modifying guest OS source code
