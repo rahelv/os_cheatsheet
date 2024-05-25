@@ -6,7 +6,6 @@
   \item[Process Control Block] Information about each P: P state, P number, PID, program counter, CPU registers, Mem.-management information (allocated mem for process), I/O status, CPU scheduling info (e.g. priority), Accounting info (e.g. CPU used)
   \item[Context Switch] When CPU switches to another P, save PCB of prev. P, load PCB of new P.
 \end{description}
-
 % \includegraphics[width=0.5\linewidth]{process_state.png}
 \subsection*{Processes Layout}
 \begin{description}
@@ -15,14 +14,11 @@
   \item[data] Global variables
   \item[text] executable code
 \end{description}
-
-
 \subsection*{Operations on processes}
 \begin{description}
   \item[Process creation]Parent P creates child (fork()) which can create own children → tree structure, every proc. has a unique P identifier (pid). Either parent and child share all, a part or no resources.
   \item[Process termination] P's delete themselves w/ exit(). Parent deletes child w/ abort(). Parent waits for child to end w/ wait(). child → \textbf{zombie} if child terminates w/o or before parent wait(), child → \textbf{orphan} if parent terminates.
 \end{description}
-
 \subsection*{Interprocess communication}
 \begin{description}
   \item[Shared Memory]Communication is under control of user P (not OS), P's share mem. space. Issue: Producer-Consumer problem.

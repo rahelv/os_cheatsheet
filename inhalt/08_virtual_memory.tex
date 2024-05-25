@@ -12,6 +12,6 @@ Abstracts main mem into an extremely large, uniform array of storage (LAS > PAS)
     \item[Thrashing] P does not have enough frames to support the pages int he working set $\rightarrow$ high page-fault rate $\rightarrow$ low CPU utilization $\rightarrow$ OS increases multiprog (with global r. alg.) $\rightarrow$ more thrashing
     \begin{itemize}
         \item \textbf{Locality}: set of pages that are actively used together by a P.
-        \item \textbf{Locality Model}: all programs will exhibit a basic patterned mem reference structure, page-faults occure only when it changes locality (of mem-reference). Thrashing occurs when sum of locality sizes > total Phys. Mem, can be limited by using local replacement algorithm, or simply providing enough mem.
+        \item \textbf{Locality Model}: all progs will exhibit a basic patterned mem reference structure, page-faults occur only when it changes locality (of mem-reference). Thr. occurs when sum of locality sizes > total phys. mem, can be limited by using local replacement algo, or simply providing enough mem.
     \end{itemize} %TODO: Working Set Model, ev. OS Examples ?
 \end{description}

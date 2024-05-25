@@ -19,7 +19,7 @@ MM is the only storage the CPU can access directly. \textbf{Speed:} CPU Register
     % \includegraphics[width=0.4\linewidth]{05_paging.jpg} %TODO: modify image to include TLB
     \item[] OS keeps copy of each per-P page table + maintains frame table (for each physical frame)
     \item[Hardware Implementation]: per-P page table kept in main mem. \textbf{PTBR} page-table base register (pointers) \& \textbf{PTLR} page-table length register (size of page table)
-    \item[Translation Lookaside Buffer TLB]: also called associative mem. hw cache for page table. (page nr, frame)
+    \item[Translation Lookaside Buffer TLB]: associative mem. hw cache for page table. (page nr, frame)
     % TODO: replacement policies: round-robin, LRU, random. key kernel code can be wired down for permanent fast access
     \item[Memory Protection] protection bit (read-only, read-write) or valid-invalid bit (attached to each entry in the page table. indicates if legal (in LAS) or not)
     \item[Shared Pages]: reentrant (unchanging) code shared among Ps. ex: Standard C libary

@@ -51,8 +51,8 @@ Allocate several resources among several Ps in a DL- and starvation-free manner.
 
 \subsection*{Deadlocks}
 \begin{description}
-    \item[Deadlock]2 or more P's are waiting indefinitely for an event that can be caused only by one of the waiting Ps. 4 conditions: \textbf{Mutual exclusion}, \textbf{Hold and wait} P that holds min. 1 res waits for another res. \textbf{No preemption} res can only be released voluntarily by P holding it. \textbf{Circular Wait} Cycle in res-alloc graph
-    \item[Resource-Allocation Graph] Cycle necessary \& sufficient condition, only a possibility if several instances%TODO: add picture
+    \item[Deadlock]2 or more P's are waiting indefinitely for an event that can be caused only by one of the waiting Ps. 4 conditions: \textbf{Mut. Ex.}, \textbf{Hold and wait} P that holds min. 1 res waits for another res. \textbf{No preemption} res can only be released voluntarily by P holding it. \textbf{Circular Wait} Cycle in res-alloc graph
+    \item[Resource-Allocation Graph] Cycle necessary \& sufficient condition (possibility if several instances) %TODO: add picture
     \item[Handling Deadlocks]\textbf{1}. Ensure that sys never enters DL: DL prevention/avoidance ( allow res-alloc only if no DL could happen) \textbf{2}. Allow DL, detect and recover from it. \textbf{3}. Ignore DLs (approach of most OS, user is responsible)
     \item[Deadlock Prevention]: Eliminate at least 1 cond (only D4 practical to eliminate) \\
     \textbf{D1:} Use shareable res (e.g. read-only files) \textbf{D2:} Only req. res if P doesn’t hold other res (problem: low res util/ starvation) \textbf{D3:} (if res not available: first free all, restart if all needed res can be acquired at once) \textbf{D4:} Impose total ordering on all res-types. Requests allowed only in increasing order of enumeration.
