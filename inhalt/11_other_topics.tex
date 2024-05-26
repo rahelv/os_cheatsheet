@@ -38,13 +38,13 @@
 \subsection*{OpenMP}
 API for writing Multithreaded Applications: Compiler Directives, Library Routines. for C/C++ and Fortran. Standardizes SMP (symmetric multiprocessing). #include "omp.h"
 \begin{description}
-    \item[Pros] %TODO: S. 37
-    \item[Cons] %TODO S. 37
+    \item[Pros] Widely available on many multicore computers, works OS-independent, fewer code modifications than using message passing, directives are treated as comments when OpenMP not available, directives can be added incrementally.
+    \item[Cons] Doesn't run on distributed memory computers, requires compiler which supports OpenMP, limited by #cores available, may have lower parallel efficency.
     \item[Components]\textbf{Directives (Pragmas)}, \textbf{Runtime Lib routines}, \textbf{Env. variables} %TODO: diagrams S. 39, 40
     \begin{itemize}
     \item \textbf{Structured Blocks}: between \{\}. \textbf{Conditional Compilation} #ifdef \_OPENMP... \textbf{Continued lines} with \textbackslash
         \item \textbf{Parallel regions (D)} fork when encountering parallel region (worker thread team/pool started). implicit join. sleep until needed again.
-        \item \textbf{Work Sharing (D)}: OpenMP designed for parallelize loops (for-loops). #pragma omp parallel for
-        \item \textbf{RTL functions}: %TODO: S. 47
+        \item \textbf{Work Sharing (D)}: OpenMP designed for parallelize loops (for-loops). \textit{\#pragma omp parallel for} splits loops between multiple threads. With \textit{\#pragma omp parallel} each thread executes each loop iteration.
+        \item \textbf{Runtime Library (RTL) functions}: functions executed during runtime
     \end{itemize}
 \end{description}
