@@ -1,28 +1,25 @@
 \section*{OS Structures}
 
 \subsection*{System Calls}
+Programming Interfaces to services provided by the OS, below UI. written in high-level lang (C/C++). %NOTE: Mostly accessed via high-level APIS: WIN32 API, POSIX API
 \begin{description}
-    \item[System Call] Programming Interface to services provided by the OS written in high-level lang (C or C++), below user interface.
-   \item[System Call Interface] Each system call associated with a number, Sys. Call interface maintains a table of those numbers, calls OS to execute and returns status and output.
-   \item[Parameter passing] Either by passing parameters into registers (limited); or store them in a mem block and pass addresses in a register (unlimited length of parameter, limited amount of parameters); or push them onto stack (unlimited amount \& length)
-  \item[Syscall types] File management, Device management, Information management, Communications, Protection
-
+    \item[System Call Interface] Each system call associated with a number, sys. call interface maintains a table of those numbers, calls (OS) Kernel to execute and returns status and output.
+   \item[Parameter passing] 1. Pass params in registers (limited) 2. Store Params in mem block, pass addresses in register (unlimited length, but limited amount); 3. push params onto stack (unlimited amount \& length) %NOTE: possible concurrency issues
+  \item[Syscall Types] File management, Device Mgmt, Information Mgmt, Communications, Protection
 \end{description}
 
 \subsection*{System Programs}
+Provide convenient environment for program development and execution. Are often UIs to system calls
 \begin{description}
-  \item[System Program]Provides convenient environment for program development and execution. Often they are user interfaces to system calls
-  \item[System Program Types] File management, Status information, Programming-language support, Program loading and execution, Communications, Background Services (daemons)
+  \item[Types] File management, Status information, Programming-language support, Program loading and execution, Communications, Background Services (daemons)
 \end{description}
 
 \subsection*{Application Programs}
-\begin{description}
-  \item[Application Programs]  designed to carry out a specific task other than one relating to the operation of the computer itself, typically to be used by end-users, e.g. web browsers.
-\end{description}
+designed to carry out a specific task other than one relating to the operation of the computer itself, typically to be used by end-users, e.g. web browsers.
 
-\subsection*{Creation of processes}
+\subsection*{Creation of processes} %TODO: insert picture for linking loading etc.
 \begin{description}
-  \item[1. Preprocessing] Reads c file, processes includes, expands macros, handles conditional compilation.
+  \item[1. Preprocessing] Reads c file, processes \#include, expands macros, handles conditional compilation.
   \item[2. Compilation] Produces object code (.o), i.e. sequences of bytes, loadable into any mem location
   \item[3. Linking] Combines all object and library files into one executable file. Solves unresolved external references. Relocates machine addresses
   \item[Dynamic Linking] Conditionally linked libraries. Loads system libraries only once.
@@ -30,18 +27,16 @@
   \item[4. Loading] Shell/click creates P, invokes loader, loads exe to RAM. OS allocates mem, relocates mem addresses.
   \item[5. Execution] Program is a running P, CPU starts processing, upon completion returns status, releases resources, removed from mem
 
-
-
   \item[Executables across OSs] Apps compiled on one OS are not executable on other OSs. (differing system calls, binary formats, instruction sets application binary interface). Can be solved via interpreted langs, virtual machines, use of standard API with compiler generating binaries in OS specific language (e.g. POSIX)
-
 \end{description}
 
 \subsection*{OS Structures}
 \begin{description}
-  \item[Monolithic Systems]Includes everything between user prog and hardware. + fast kernel communication, + little overhead, + easy interaction between OS modules, - difficult to change, maintain, - single failure can cause system crash, - gets complex fast.
-
-  \item[Loadable Kernel Modules] Kernel can load independent modules such as device drivers when needed. Like layered Modules but more flexible as kernel can communicate directly. (Linux has this)
-  \item[Layered Module Structure] OS is divided into layers, each built on top of lower layers. Each layer implements service and communicates only to lower level layers.
-    \item[Microkernel Systems] Everything in user mode, except scheduling, virt. mem. and basic IPC in kernel mode. + easy to extend, + more reliable and secure, + easier to port, - more performance overhead of kernel and user space communication.
+    \item[Monolithic Systems]Includes everything between user prog and HW. \textbf{+} fast kernel comm., little overhead, easy interaction between OS modules, \textbf{-} difficult to change/maintain (complexity), single failure can cause system crash.
+\begin{itemize}
+    \item \textbf{Loadable Kernel Modules}: ex: device drivers, loaded when needed. OO-approach. more flexible (kernel can communicate directly). (Linux has this) \\
+    \item \textbf{Layered Module Structure} OS divided into layers, each implements a service and communicates only to lower level layers (Layer 0: HW $\rightarrow$ N: UI).
+\end{itemize}
+    \item[Microkernel Systems] Everything in user mode, except scheduling, virt. mem. and basic IPC in kernel mode. + easy to extend, + reliability and security, + easier to port, - more performance overhead of kernel and user space communication. %NOTE: communication between user modules through message passing
       \item[Hybrid Systems] Combines microkernel and monolitic approach to address performance, security, usability needs. OS partially in kernel and user mode e.g. Linux
 \end{description}

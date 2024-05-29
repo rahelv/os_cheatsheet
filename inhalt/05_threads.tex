@@ -1,14 +1,16 @@
 \section*{Threads}
-% \subsection*{}
+% TODO: process creation is heavyweight, thread creation is light-weight (wieso?)
 \begin{description}
-  \item[Threads] A basic unit of CPU utilization, executed within P.  Shared with P: code, data, files. Private: registers, stack, PC and own copy of T-local-storage (i.e. copy of static data)
-  \item[Multithreaded benefits] responsiveness, resource sharing easier than with Ps, cheaper than P creation, lower overhead in context switching, scalability (even single P can take advantage)
-  \item[Multiprocess benefits] being isolated, are better suited for tasks that require a  higher degree of separation and security.  \end{description}
+  \item[Threads] A basic unit of CPU utilization, executed within P.  Shared with P: code, data, files. Private: registers, stack, PC and own copy of data in T-local-storage \textbf{TLS} (i.e. static data) %NOTE: TLS $\neq$ local variables.
+  \item[Multithreaded benefits] responsiveness, resource sharing easier than with Ps, cheaper/faster than P creation, lower overhead in context switching, scalability (even single P can take advantage)
+  \item[Multiprocess benefits] isolated, better for tasks that require higher degree of separation and security.
+\end{description}
 
 \subsection*{Multicore Programming}
 \begin{description}
-  \item[Concurrency] More than one task making progress, tasks running out-of-order or in a partial order. (Software Parallelism)
+  \item[Concurrency] Multiple tasks making progress, tasks running out-of-order or in a partial order. (Software Parallelism)
   \item[Parallelism] Requires Concurrency and implies system can run more than one task simultaneously on multiple cores/nodes. (Hardware Parallelism)
+  %NOTE: challenges of parallelism: parallelization, partitioning, dependencies, balance, testing/debugging
   \item[Data Parallelism] distribute subsets of data across multiple cores, same operation on each core
   \item[Task Parallelism]  Tasks across  multiple cores, each task running unique operation(s).
   \item[Hybrid Parallelism] Combination of task \& data parallelism
@@ -17,13 +19,15 @@
 
 \subsection*{Multithreading Models}
 \begin{description}
-  \item[User threads (UT)] Ts in user space, which are not visible to kernel and managed without kernel support
+    \item[User threads (UT)] Ts in user space, not visible to kernel \& managed w/out kernel support. (ex: pthreads)
   \item[Kernel Threads (KT)] Supported and managed by OS kernel
   \item[Many-to-One] Many UT mapped to one single KT. Not widely used, as one blocking UT blocks all UT and Ts don't run in parallel
   \item[One-to-One] Each UT maps to one KT (two-level-concurrency: Ts in both user and kernel space are concurrent). Number of Ts restricted due to causing overhead in kernel
   \item[Many-to-Many] Many UT multiplexed to many KT.OS creates as many KT as needed. Because of newer CPUs with many Ts, not that relevant anymore (starts to look like 1:1)
-  \item[Two-level-Model] Many-to-Many with one single One-to-One exception (which needs guaranteed level of service).
+  \item[Two-level-Model] M-to-M with one single 1-to-1 exception (needs guaranteed level of service).
 \end{description}
+
+\subsection*{Explicit Threading (ex: Pthreads)} %NOTE: POSIX: Portable Operating System Interface Standard. Specification, not Implementation.
 
 \subsection*{Implicit Threading}
 \begin{description}
@@ -33,7 +37,7 @@
 
 \subsection*{Threading Issues}
 \begin{description}
-\item[Semantics of fork() \& exec()] if T invokes exec(), it replaces whole process with all Ts. fork() sometimes duplicates process with all Ts and sometimes only calling T.
+\item[Semantics of fork() \& exec()] if T invokes exec(), it replaces whole P with all Ts. fork() sometimes duplicates P with all Ts and sometimes only calling T.
   \item[Signal handling] (Signals are event based messages to a P) Problem: Where should a signal be delivered for a multithreaded P? Either same T is informed (sync), all Ts (async) or special signal T
   \item[Asynchronous cancellation] T terminates immediately
   \item[Deferred cancellation] T periodically checks if it should terminate (recommended)

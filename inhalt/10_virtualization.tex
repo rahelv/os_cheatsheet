@@ -15,14 +15,16 @@ Abstract the HW of a single computer (CPU, RAM, Storage) into different executio
         \item \textbf{Paravirtualization}: avoids causing traps by modifying guest OS source code
     \end{itemize}
 \end{description}
+
 \subsection*{Building Blocks}
 Exact Duplicate of HW difficult to provide (esp. with dual-mode operation (kernel/user mode))
 \begin{description}
     \item[VCPU]Virtual CPU to represent the state of CPU per guest (as guest believes it to be).  %does not execute code, information from VCPU used during context-switches
     \item[Trap-and-emulate] virtual user mode and virtual kernel mode (guest runs in physical user mode). privileged instruction (ex. sys calls) $\rightarrow$ trap to VMM $\rightarrow$ VMM emulates action $\rightarrow$ return control to guest (kernel mode slower $\rightarrow$ hw support)
     \item[Binary Translation] For CPUs that do not cleanly differentiate privileged instructions. VCPU in user mode $\rightarrow$  run instructions natively. VCPU in kernel mode $\rightarrow$ inspect next few instructions, \textit{Special Instructions} are translated and executed.
-    \item[Hardware Support]enables more stable, faster and feature rich virtualization. more CPU modes, hw support for Nested Page Tables, DMA, interrupts (ex: Intel VT-x, AMD: AMD-V)
+    \item[Hardware Support]enables more stable, faster and feature rich virtualization. more CPU modes, HW support for Nested Page Tables, DMA, interrupts (ex: Intel VT-x, AMD: AMD-V)
 \end{description}
+
 \subsection*{Virtualization and OS Components}
 How do VMMs provide core OS-functions ?
 \begin{description}
@@ -37,6 +39,7 @@ How do VMMs provide core OS-functions ?
     \item[Live Migration]copy running guest to another system. (interesting: MAC must be movable (network). Limitations: Disks cannot be moved. (solve: make remote) \\
     src connects to T(target) $\rightarrow$ T creates guest $\rightarrow$ send readonly pages $\rightarrow$ send read-write pages (clean) $\rightarrow$ send dirty pages (modified, repeatedly) $\rightarrow$ send VCPU's final state and start T $\rightarrow$ terminate source
 \end{description}
+
 \subsection*{Containerization}
 \begin{description}
     \item[Application Containment]run applications in isolated environment. create virtual layer between OS and applications. Each zone has own applications, Network Stack, Addresses, ... CPU and RAM divided between zones.

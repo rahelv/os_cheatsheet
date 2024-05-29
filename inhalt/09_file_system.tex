@@ -1,5 +1,6 @@
 \section*{File Systems}
 mechanism for storing and accessing data and programs. \textbf{Files} contain data, \textbf{Directory structure} organizes and stores information about files.
+
 \subsection*{Files}
 \textbf{OS View:}  named collection of related info, logical storage unit, \textbf{User View:}  smallest unit to store info in sec. storage.
 \begin{description}
@@ -9,12 +10,14 @@ mechanism for storing and accessing data and programs. \textbf{Files} contain da
     \item[Structures]: File types can indicate internal structure of files. (ex: ELF (executable and linkable file in Linux)), makes OS large and cumbersome
     \item[Types - File extension]: extensions are used to indicate file types (ex: exe, c, xml, ... )
 \end{description}
+
 \textbf{Access Methods} Ways to retrieve/deal with information
 \begin{itemize}
     \item \textbf{Sequential}: information processed in order (read\_next() or write\_next()), developed for tape
     \item \textbf{Direct}: allow random access to any file block (file = sequence of records/blocks), developed for disk storage, read(n) or write(n) where n = block number
     \item \textbf{Indexing}: index contains pointers to blocks, search for a record in the file in index. (index can be kept in mem for faster access)
 \end{itemize}
+
 \subsection*{Directory}
 collection of nodes containing information about all files. (symbol tables that translate file names into file control blocks)
 \begin{description}
@@ -22,6 +25,7 @@ collection of nodes containing information about all files. (symbol tables that 
     \item[Structure] \textbf{Single-Level} one dir for all users (grouping and naming problems), \textbf{Two-Level} separate dir for each user (UFD, efficient search, no grouping), \textbf{Tree-based} efficient search, grouping, abs/rel paths \textbf{Acyclic-graph} easy \& good traversal algos, shared subdirs and files, need to guarantee no cycles, complicate searching and deletion \textbf{General Graph} allows cycles, requires garbage collection to recover unused disk space %TODO: explain Multiple user file dir, no cycles bf of possibility of infinite loop
     \item[Memory Mapped Files] Map disk block (phys. mem) to page in virtual mem to directly access file on disk
 \end{description}
+
 \subsection*{Implementation}
 \begin{description}
     \item[File System Structure]2 Problems: Define User View, Create Algorithms and Data Structures to map logical file system to physical secondary storage devices.\\
@@ -37,6 +41,7 @@ collection of nodes containing information about all files. (symbol tables that 
         \textbf{Indexed}: Each file has index block with pointers to data blocks. Random access, no ext. fragmentation, but overhead for index blocks (too big = overhead, too small = limits file size). \textit{Linked Scheme} link several index blocks, \textit{Multilevel Index} multiple levels of index blocks , \textit{Combined scheme}
     \item[Free-Space Management] File System maintains free-space list. Implementation: \textbf{Bit Vector/Map}: Each block represented by 1 bit, 0 = free, search for first 0 to find free space. \textbf{Linked List}: Link all free blocks together. Traversing time-consuming but seldom needed (always use first block). (\textbf{Grouping}: first free block contains adresses of another n free blocks)..
 \end{description}
+
 \subsection*{Internals}
 \begin{description}
     \item[Storage] Devices $\rightarrow$ Partitions $\rightarrow$ Volumes $\rightarrow$ File Systems

@@ -1,11 +1,11 @@
 \section*{Scheduling}
 \textbf{OS typically schedule threads and not processes}
-
 \subsection*{Basic concepts}
 \begin{description}
-  \item[Scheduling queue] OS maintains a ready and wait (i.e. waiting for I/O or for child termination or for interrupt to be serviced) queue.
-  \item[Short-term scheduler] Selects P which should be brought from ready queue to mem and allocates CPU time.
-  \item[Long-term scheduler] Selects P which should be brought from job pool (possibly on disk) to ready queue
+  \item[Scheduling queues] OS maintains a ready and wait (waiting for I/O, child termination or interrupt to be serviced) queues.
+  \item[Short-term (CPU) scheduler] Selects P from ready queue to be brought to mem and allocates CPU time.
+  \item[Long-term (Job) scheduler] Selects Ps to be brought from job pool (possibly on disk) to ready queue
+  \item[Medium-Term scheduler] Removes Ps from mem, decrease degree of multiprog. (Swapping)
   \item[Dispatcher] Component, which gives control of CPU to P. Jobs: switching context, switching to user mode, jumping to proper location in program.
   \item[Starvation] A P has little to no CPU-time
   \item[Aging] The waiting time of a P is taken into account.
@@ -36,3 +36,5 @@
   \item[Process Contention Scope (PCS)] Competition for CPU time is  among Ts within the same P. The user-level T library schedules, OS not involved in scheduling.
   \item[System Contention Scope (SCS)] Ts from different Ps, as well as Ts within the same P, compete for CPU time. OS is scheduling Ts. OS using one-to-one mapping model schedule Ts only using SCS.
 \end{description}
+
+%TODO: Complete Fair Scheduling
