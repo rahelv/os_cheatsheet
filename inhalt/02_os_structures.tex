@@ -17,17 +17,22 @@ Provide convenient environment for program development and execution. Are often 
 \subsection*{Application Programs}
 designed to carry out a specific task other than one relating to the operation of the computer itself, typically to be used by end-users, e.g. web browsers.
 
-\subsection*{Creation of processes} %TODO: insert picture for linking loading etc.
+\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=-56mm,yshift=-23mm] at (current page.center){%
+        \includegraphics[width=15mm]{linking_loading.jpg}};
+\end{tikzpicture}
+
+\subsection*{Creation of processes}
 \begin{description}
   \item[1. Preprocessing] Reads c file, processes \#include, expands macros, handles conditional compilation.
   \item[2. Compilation] Produces object code (.o), i.e. sequences of bytes, loadable into any mem location
-  \item[3. Linking] Combines all object and library files into one executable file. Solves unresolved external references. Relocates machine addresses
+  \item[3. Linking] Combines all object and library files into one executable file. Solves unresolved \\ external references. Relocates machine addresses
   \item[Dynamic Linking] Conditionally linked libraries. Loads system libraries only once.
   \item[Static Linking] Necessary library functions are embedded directly in exe.
-  \item[4. Loading] Shell/click creates P, invokes loader, loads exe to RAM. OS allocates mem, relocates mem addresses.
-  \item[5. Execution] Program is a running P, CPU starts processing, upon completion returns status, releases resources, removed from mem
+  \item[4. Loading] Shell/click creates P, invokes loader, loads exe to RAM. OS allocates mem, \\ relocates mem addresses.
+  \item[5. Execution] Program is a running P, CPU starts processing, upon completion returns status,\\ releases resources, removed from mem
 
-  \item[Executables across OSs] Apps compiled on one OS are not executable on other OSs. (differing system calls, binary formats, instruction sets application binary interface). Can be solved via interpreted langs, virtual machines, use of standard API with compiler generating binaries in OS specific language (e.g. POSIX)
+  \item[Executables across OSs] Apps compiled on one OS are not executable on other OSs. \\ (differing system calls, binary formats, instruction sets application binary interface). Can be \\ solved via interpreted langs, virtual machines, use of standard API with compiler generating \\ binaries in OS specific language (e.g. POSIX)
 \end{description}
 
 \subsection*{OS Structures}

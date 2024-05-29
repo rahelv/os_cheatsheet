@@ -6,9 +6,12 @@
   \item[Process Control Block] Information about each P: P state, P number, PID, program counter, CPU registers, Mem.-management information (allocated mem for process), I/O status, CPU scheduling info (e.g. priority), Accounting info (e.g. CPU used)
   \item[Context Switch] When CPU switches to another P, save PCB of prev. P, load PCB of new P. (overhead)
 \end{description}
-%TODO: \includegraphics[width=0.5\linewidth]{process_state.png}
 
 \subsection*{Processes Layout}
+\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=76mm,yshift=5mm] at (current page.south west){%
+    \includegraphics[width=55mm]{process_states.jpeg}};
+\end{tikzpicture}
 \begin{description}
   \item[Stack] temporary data: function parameters, return addresses, local variables
   \item[Heap] dynamically mem allocated during execution
@@ -19,7 +22,7 @@
 \subsection*{Operations on processes}
 \begin{description}
   \item[Process creation]Parent P creates child (fork()) which can create own children → tree structure, every P has a unique identifier (PID). Either parent and child share all, a part or no resources.
-  \item[Process termination] P's delete themselves w/ exit(). Parent deletes child w/ abort(). Parent waits for child to end w/ wait(). child → \textbf{zombie} if child terminates w/o or before parent wait(), child → \textbf{orphan} if parent terminates.
+  \item[Process termination] P's del themselves w/ exit(). Parent del child w/ abort(). Parent waits for child to end w/ wait(). child → \textbf{zombie} if child terminates before/w/o parent wait(), → \textbf{orphan} if parent terminates.
 \end{description}
 
 \subsection*{Interprocess communication}
@@ -33,6 +36,5 @@
   \item[Ordinary Pipe] Comm. b/w parent and child, cannot be accessed from outside the P that created it. Have a read end (fd[1]) and write end (fd[0]). Exists until P completion. (unidirectional)
   \item[Named Pipe, FIFO] Several P's can use pipe for communication. Exist until deleted. Appears as a file. (bidirectional: half/full duplex) %NOTE: duplex: travel one direction at the time or both at the same.
   \item[Socket] Endpoint of communication b/w machines, concatenation of IP and port. Data is sent via packets.
-  % \item[Remote Procedure Calls]abstract procedure calls between Ps on networked systems. Stubs (client-side proxy for procedure on server)
-  %TODO: RPC's
+  \item[Remote Procedure Calls] abstract procedure (function) calls between Ps on networked systems. %NOTE: function can be invoked by P on another computer.
 \end{description}

@@ -1,11 +1,10 @@
 \section*{Synchronization}
-Cooperating P's: execute concurrently, may be interrupted, share data. Maintain data consistency through Sequencing and Coordination.
-% access: LAS or shared mem/message passing
+Maintain data consistency through Sequencing and Coordination.
 \subsection*{Race Conditions}
-Execution outcome dependent on order of concurrent access to shared data (ex: counter in prod-cons-prob, PID)
+Execution outcome dependent on order of concurrent access to shared data (ex: counter in P-C-prob, PID)
 \begin{description}
         \item[solutions:] disabling interrupts (single core vs. multiprocessors (time-consuming), affects system clock)
-        \item[preemptive kernel:] P preempted in kernel mode, most common. more responsive, suitable for real-time programming
+        \item[preemptive kernel:] P preempted in kernel mode, most common. responsiver, suitable for real-time prog %more responsive
         \item [non-preemptive kernel:] uncommon, P blocks CPU
 \end{description}
 
@@ -17,7 +16,8 @@ Execution outcome dependent on order of concurrent access to shared data (ex: co
     \item[Mutex Lock] acquire() and release() lock (atomic), bool available (binary), require busy waiting (spinlock, no context switch required)
     \item[Semaphores] integer variable, accessed through wait() and signal(). busy wait \\
         - \textbf{counting} (init to nr of resources available, decr. in wait) vs. \textbf{binary} semaphore (like mutex lock). \\
-        -  \textbf{implementation with suspension and waiting queues} instead of busy waiting S suspends itself, each semaphore has associated waiting queue. signal() removes one P from list and awakens it.   %TODO: Code Example S. 27
+        -  \textbf{implementation with suspension and waiting queues} instead of busy waiting S suspends itself, each semaphore has associated waiting queue. signal() removes one P from list and awakens it. \\
+        EX: \textbf{wait(S)} S--, if(S < 0) P to list, block() \textbf{signal(S)} S++, if(S<=0) rem P from list, wakeup().
     \item[Monitors] high level form of P sync. (ADT, internal vars only acessible within procedures) \\
         - \textbf{condition variables} wait (suspends P) and signal (tells P to resume/condition could have changed) on condition var. \\
         - \textbf{mutex locks}: acquire and release are procedures in monitor
@@ -43,15 +43,11 @@ Allocate several resources among several Ps in a DL- and starvation-free manner.
         (starvation (requirement 3) still possible, can be solved by introducting time restriction)
 \end{description}
 
-\subsection*{Synchronization within the Kernel (Linux)} %
+\subsection*{Implementation of Synchronization}
 \begin{description}
-    \item[atomic\_t]atomic integers, operations performed without interruptions
-    \item[spinlocks]for SMPS, nonrecursive, short locking %TODO: S. 19
-    \item[mutex locks, semaphores]
+    \item[Within the Kernel (Linux)] \textbf{atomic\_t} atomic integers, operations performed without interruptions, \textbf{spinlocks} for SMPS, nonrecursive, short locking, \textbf{mutex locks}, \textbf{semaphores} %TODO: S. 19
+    \item[POSIX Synchronization] available to Programmers. \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple P's) and unnamed (need to be placed in shared mem) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
 \end{description}
-
-\subsection*{POSIX Synchronization}
-    \textbf{pthread.h} API is OS-independent (unix, macOS). provides mutex locks, named (accessible by multiple P's) and unnamed (need to be placed in shared mem) semaphores (include semaphore.h), condition variables (associated with a mutex lock).
 
 \subsection*{Deadlocks}
 \begin{description}
