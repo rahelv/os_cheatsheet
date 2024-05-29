@@ -11,8 +11,8 @@ Execution outcome dependent on order of concurrent access to shared data (ex: co
 
 \subsection*{Critical Section Problem}
 \begin{description}
-    \item[critical section]is where a P accesses shared data (Structure: entry, critical, exit, remainder)
-    \item[solution:]mutual exclusion (no 2 P in CS at the same time), progress (selection cannot be postponed indefinitely), bounded waiting (limit on waiting $\rightarrow$ Starvation)
+    \item[Critical Section]is where a P accesses shared data (Structure: entry, critical, exit, remainder)
+    \item[Solution: Three requirements] mutual exclusion (no 2 P in CS at the same time), progress (selection cannot be postponed indefinitely), bounded waiting (limit on waiting $\rightarrow$ Starvation)
     \item[Peterson's Solution]2 Ps, int turn, bool flag[2] shared, acquire \& lock, not guaranteed to work on modern computer architectures (requires atomic load/store, no instruction reordering)
     \item[Mutex Lock] acquire() and release() lock (atomic), bool available (binary), require busy waiting (spinlock, no context switch required)
     \item[Semaphores] integer variable, accessed through wait() and signal(). busy wait \\
