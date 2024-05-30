@@ -1,13 +1,7 @@
 \definecolor{myblue}{cmyk}{1,.72,0,.38}
 
-\def\firstcircle{(0,0) circle (1.5cm)}
-\def\secondcircle{(0:2cm) circle (1.5cm)}
-
 \colorlet{circle edge}{myblue}
 \colorlet{circle area}{myblue!5}
-
-\tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
-    outline/.style={draw=circle edge, thick}}
 
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
@@ -30,7 +24,7 @@ leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {.2ex}%
                                 {.2ex}%x
-                                {\color{myblue}\sffamily\footnotesize\bfseries}}
+                                {\color{myblue}\sffamily\scriptsize\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
                                 {.2ex}%
                                 {.2ex}%x

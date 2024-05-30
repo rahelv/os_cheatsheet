@@ -1,12 +1,16 @@
 \section*{Parallelization Steps}
+\vspace{10\baselineskip}
+\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=-30mm,yshift=27mm] at (current page.east){%
+    \includegraphics[width=55mm]{paralellization.png}};
+\end{tikzpicture}
 \begin{description}
     \item[Sequential Program]Sequential Steps + Programming (Application specification $\rightarrow$ executable program)
-    \item[Parallel Program]Parallelization + Programming. \\ %Analysis of seq. problems or programs to identify parallelism. \\
-        % \includegraphics[width=0.4\linewidth]{paralellization.png} %TODO:
+    \item[Parallel Program]Parallelization + Programming. \\
         \item[Decomposition] of apps into functional tasks / data blocks. (expose inherent concurrency). \textbf{Types:} \textbf{Data} exploits data parallelism, \textbf{Functional} expl. funct. parallelism. \textbf{Recursive} divide and conquer (exploits d or f). \textbf{Explorators} search problems, exp. data p. \textbf{Speculatory} exploit and employ if-statements. ex. f. dec. \\
         \textbf{Influencing Factors:}
         \begin{itemize}
-            \item \textbf{Application Type}: distinct steps or iterative block of computations (task parallel, data parallel) %TODO: task parallel und data parallel erklären
+            \item \textbf{Application Type}: distinct steps or iterative block of computations (task parallel, data parallel)
             \item \textbf{Concurrency degree (max, avg)}: depending of degree of inherent parallelism. all/enough or none can be executed concurrently.
             \item \textbf{Granularity}: computational size of tasks / data blocks after decomposition. (fine, medium, coarse)
             \item \textbf{Target system}: affects costs of synchronization and communication. (\textit{Shared-mem arch}: support fine-grain decomp. inexpensive more frequent s \& c, \textit{Distr. mem arch}: usually require coarse-grain decomp. more expensive and less frequent.)
@@ -31,7 +35,7 @@
 \begin{description}
     \item[How?] Extend Compilers, \textbf{Extend languages}, Stack languages or New language \& Compiler Set
     \item[Pros] easiest, quickest, cheapest (effort, time). leverages existing compiler tech, new libs ready fast.
-    \item[Cons] lack of compiler support to catch errors (P creation, term., sync and communication), easy to write "bad" programs
+    \item[Cons] lack of compiler support to catch errors (P creation, term., sync and communication), complicated
     % \item[Standards: Shared-Memory Approach with OpenMP] TODO:
     \item[Parallel Multithreaded Programming]Multiple Ts (independent flow of control within one P with its own context (stack \& register set)). shares P data and opened files. Lower overhead. %TODO: S. 35
 \end{description}

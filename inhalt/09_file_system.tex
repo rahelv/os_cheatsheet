@@ -2,11 +2,10 @@
 mechanism for storing and accessing data and programs. \textbf{Files} contain data, \textbf{Directory structure} organizes and stores information about files.
 
 \subsection*{Files}
-\textbf{OS View:}  named collection of related info, logical storage unit, \textbf{User View:}  smallest unit to store info in sec. storage.
+\textbf{OS View:}  named collection of related info, log. storage unit, \textbf{User View:}  smallest unit to store info in sec. storage
 \begin{description}
     \item[Attributes](symbolic) \textbf{Name}, \textbf{Identifier},  \textbf{Type} (only if OS supports diff. types), \textbf{Location} (pointer to device + location in device), \textbf{Size} (in bytes/words/blocks), \textbf{Timestamps}, \textbf{Protection} (r, w, m)
-    \item[Operations]: \textbf{Create}: 1. find space 2. make entry in dir. \textbf{Open}: 1. evaluate file name 2. check access permissions (all ops ex. create\& delete call open) \textbf{Write(filehandle, data to write) / Read(filehandle, pointer in mem to store data) }: keeps position pointer where next read/write must happen. 1 position pointer per process. \\
-    \textbf{Reposition / Seek}: changes position pointer, \textbf{Delete(dir, file name)}: releases allocated space, \textbf{Truncate}: erase contents of file
+    \item[Operations]: \textbf{Create}: 1. find space 2. make entry in dir. \textbf{Open}: 1. evaluate file name 2. check access permissions (all ops ex. create\& delete call open) \textbf{Write(filehandle, data to write) / Read(filehandle, pointer in mem to store data) }: keeps position pointer where next read/write must happen. 1 position pointer per process. \textbf{Reposition / Seek}: changes position pointer, \textbf{Delete(dir, file name)}: releases allocated space, \textbf{Truncate}: erase contents of file
     \item[Structures]: File types can indicate internal structure of files. (ex: ELF (executable and linkable file in Linux)), makes OS large and cumbersome
     \item[Types - File extension]: extensions are used to indicate file types (ex: exe, c, xml, ... )
 \end{description}
@@ -19,10 +18,10 @@ mechanism for storing and accessing data and programs. \textbf{Files} contain da
 \end{itemize}
 
 \subsection*{Directory}
-collection of nodes containing information about all files. (symbol tables that translate file names into file control blocks)
+collection of nodes w/ information about all files. (symbol tables that translate file names into file control blocks)
 \begin{description}
     \item[Operations]Search, Create, Delete, List, Rename, Traverse
-    \item[Structure] \textbf{Single-Level} one dir for all users (grouping and naming problems), \textbf{Two-Level} separate dir for each user (UFD, efficient search, no grouping), \textbf{Tree-based} efficient search, grouping, abs/rel paths \textbf{Acyclic-graph} easy \& good traversal algos, shared subdirs and files, need to guarantee no cycles, complicate searching and deletion \textbf{General Graph} allows cycles, requires garbage collection to recover unused disk space %TODO: explain Multiple user file dir, no cycles bf of possibility of infinite loop
+    \item[Structure] \textbf{Single-Level} one dir for all users (grouping and naming problems), \textbf{Two-Level} separate dir for each user (UFD, efficient search, no grouping), \textbf{Tree-based} efficient search, grouping, abs/rel paths \textbf{Acyclic-graph} easy \& good traversal algos, shared subdirs and files, need to guarantee no cycles, complicate searching and deletion \textbf{General Graph} allows cycles, requires garbage collection to recover unused disk space %TODO: explain Multiple user file dir, no cycles bc of possibility of infinite loop
     \item[Memory Mapped Files] Map disk block (phys. mem) to page in virtual mem to directly access file on disk
 \end{description}
 
@@ -37,7 +36,7 @@ collection of nodes containing information about all files. (symbol tables that 
     %TODO: S. 10 (?) Implementation
     \item[Directory Implementation] \textbf{Linear List} easy to program, time-consuming in execution (requires linear search). optimizations: sorted list (but requires sort), binary tree. \textbf{Hash Table} linear list with hash data structure, decreases search time. beware of collisions. fixed size. optimizations: chained-overflow hash table.
     \item[Allocation Methods] \textbf{Contiguous}: file occupies contiguous blocks on device. Simple (needs only block nr \& length), performant. Problems: find space for file, knowing file size, external frag. Requires Compaction (Downtime). %Extents
-        \textbf{Linked}: File = linked list of storage blocks. solves problems of cont. frag. dir contains pointer to first\&last blocks. no direct access. (\textit{File Allocation Table FAT}) %TODO: FAT: only keeps track of file allocation but not free space
+        \textbf{Linked}: File = linked list of storage blocks. solves problems of cont. frag. dir contains pointer to first\&last blocks. no direct access. (\textit{File Allocation Table FAT, keeps track of file alloc. but not free space})
         \textbf{Indexed}: Each file has index block with pointers to data blocks. Random access, no ext. fragmentation, but overhead for index blocks (too big = overhead, too small = limits file size). \textit{Linked Scheme} link several index blocks, \textit{Multilevel Index} multiple levels of index blocks , \textit{Combined scheme}
     \item[Free-Space Management] File System maintains free-space list. Implementation: \textbf{Bit Vector/Map}: Each block represented by 1 bit, 0 = free, search for first 0 to find free space. \textbf{Linked List}: Link all free blocks together. Traversing time-consuming but seldom needed (always use first block). (\textbf{Grouping}: first free block contains adresses of another n free blocks)..
 \end{description}
@@ -45,6 +44,6 @@ collection of nodes containing information about all files. (symbol tables that 
 \subsection*{Internals}
 \begin{description}
     \item[Storage] Devices $\rightarrow$ Partitions $\rightarrow$ Volumes $\rightarrow$ File Systems
-    \item[Mounting] FS must be mounted before usage. \textbf{Mount point}: Location in dir structure where FS will be attached. Root partition gets mounted by the \textbf{boot loader} (set of blocks that contain enough code to know how to load the kernel) at boot time.
+    \item[Mounting] FS must be mounted before usage. \textbf{Mount point}: Location in dir structure where FS will be attached. Root partition mounted by the \textbf{boot loader} (set of blocks, enough code to know how to load kernel) at boot time.
     \item[Partitions] volume containing a FS. \textbf{Cooked} with FS, \textbf{Raw} w/o FS, raw sequence of bytes, \textbf{Root} contains the OS.
 \end{description}

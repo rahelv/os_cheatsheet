@@ -1,8 +1,10 @@
 \section*{Scheduling}
-\textbf{OS typically schedule threads and not processes}
+\textbf{Modern OS typically schedule threads and not processes} %NOTE: process seen as container of resources, thread is executed entity
 \subsection*{Basic concepts}
 \begin{description}
-  \item[Scheduling queues] OS maintains a ready and wait (waiting for I/O, child termination or interrupt to be serviced) queues.
+  \item[CPU-Bound / I/O-Bound]few \& long \textbf{CPU bursts} vs. many \& short
+  \item[Scheduling queues]OS maintains ready and wait (waiting for I/O, child termination or interrupt) queues.
+  \item[Preemptive Scheduling] CPU can be taken away from P. consider shared data, pr. in kernel m., disabling interrupts. \textbf{NonPr.}: P must voluntarily relinquish CPU control. %NOTE: nonpr: running $\rightarrow$ waiting, termination. pr: running $\rightarrow$ ready, waiting $\rightarrow$ ready
   \item[Short-term (CPU) scheduler] Selects P from ready queue to be brought to mem and allocates CPU time.
   \item[Long-term (Job) scheduler] Selects Ps to be brought from job pool (possibly on disk) to ready queue
   \item[Medium-Term scheduler] Removes Ps from mem, decrease degree of multiprog. (Swapping)
@@ -14,27 +16,41 @@
 \subsection*{Scheduling Criteria}
 \begin{description}
   \item[CPU utilization] $100 * cpu\_busy\_time / total\_time$
-  \item[Throughput] $number\_of\_finished\_Ps_/time\_unit$
+  \item[Throughput] $number\_of\_finished\_Ps_/time\_unit$ (measure of work)
   \item[Turnaround time] Amount of time to complete a particular P $waiting\_time+exec\_time+i\_o\_time$
   \item[Waiting time] Amount of time a P is waiting in ready queue
   \item[Response time] time it takes from when a request was submitted until first response is produced by P. (e.g. web server handling request)
 \end{description}
 
-\subsection*{Scheduling Algorithms}
+\subsection*{Scheduling Algorithms} %NOTE: for most. if tie (same prio/time etc.) FCFS breaks the tie
 \begin{description}
-  \item[First Come, First Served (FCFS)] Can lead to convoy effect, i.e. short P's waiting for long P's (starvation), which causes long avg. waiting time.
+  \item[First Come, First Served (FCFS)] Can lead to convoy effect (short P's waiting for long P's (starvation)). long avg. waiting time. Nonpreemtive execution (not suitable for interactive systems).
   \item[Shortest-Job-First (SJF)] Length of CPU-burst estimated with previous CPU-bursts of P. Is optimal, bc minimizes average waiting time.
-  \item[Shortest-remaining-time-first (SRFT)] SJF with preemption, i.e. when P arrives with shorter burst-time than current running one, then current P is stopped and new P can run.
-  \item[Priority scheduling (Prio)] Each P has fixed priority number. Lower number = higher priority. Higher priority first.
+  \item[Shortest-remaining-time-first (SRFT)] SJF with \textbf{preemption}, i.e. when P arrives with shorter burst-time than current running one, then current P is stopped and new P can run.
+  \item[Priority scheduling (Prio)] Each P has fixed priority number. Lower number = higher priority. %NOTE: higher priority first
   \item[Round Robin (RR)] FCFS with preemption. each P can run for max fixed time q (\textbf{quantum time}). if q large $\leadsto$ FCFS , q small $\leadsto$ Context switching overhead.
-  \item[Multilevel Queue Scheduling (MLQ)] Ready queue partitioned into separate ready queues. With each queue a priority number is associated. Each queue has own scheduling algorithm (e.g. foreground tasks with RR and background tasks with FCFS). A P is permanently in a given queue. If MQL preemptive $\leadsto$ starvation.
+  \item[Multilevel Queue Scheduling (MLQ)] Ready queue partitioned into separate ready queues, each associated with a priority number \& own scheduling algorithm (e.g. foreground tasks with RR and background tasks with FCFS). A P is permanently in a given queue. If MQL preemptive $\leadsto$ starvation. %NOTE: examples: queues per priority, process types
   \item[Multilevel Feedback Queue (MLFQ)] Like MLQ, but Ps can move between various queues (e.g. Ps with short burst-time or long waiting-time go to higher-priority queues). This avoids starvation. MLFQ is the most general algorithm, since it can be configured in many ways.
+\item[Completely Fair Scheduler]Used in Linux. assigns proportion of CPU processing time to each task (based on vruntime value). Keeps track in red-black tree (searchable in log. time). Next runnable task cached.
 \end{description}
 
 \subsection*{Thread Scheduling}
 \begin{description}
-  \item[Process Contention Scope (PCS)] Competition for CPU time is  among Ts within the same P. The user-level T library schedules, OS not involved in scheduling.
+  \item[Process Contention Scope (PCS)] Competition for CPU time is among Ts within the same P. The user-level T library schedules, OS not involved in scheduling.
   \item[System Contention Scope (SCS)] Ts from different Ps, as well as Ts within the same P, compete for CPU time. OS is scheduling Ts. OS using one-to-one mapping model schedule Ts only using SCS.
 \end{description}
 
-%TODO: Complete Fair Scheduling
+\subsection*{Multiprocessor Scheduling} %AMP, SMP, HMP (Homogenous Processors)
+\begin{description}
+    %NOTE: \item[Multicore Processors]multiple. CPUs on same phys. chip, each CPU w/ mult. HW Ts. OS sees each HW T as log. CPU.
+    \item[Load Balancing]equalizes thread loads b/w CPU cores. thread migration b/w cores may invalidate cache contents $\rightarrow$ incr. mem access times.
+
+\end{description}
+
+\subsection*{Algorithm Evaluation}
+\begin{description}
+    \item[Deterministic]Take predetermined workload and define performance for each algorithm.
+    \item[Queueing Models]Describes probabilistically the arrival of Ps and CPU/IO-bursts. \textbf{Little's law}: in steady state Ps leaving queue must equal Ps arriving. avg. queue length = avg. waiting time * avg. arrival rate
+    \item[Simulations] programmed model of computer system.
+    \item[Implementation]test in real systems (high cost, high risk)
+\end{description}

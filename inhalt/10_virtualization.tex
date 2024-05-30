@@ -2,14 +2,14 @@
 Abstract the HW of a single computer (CPU, RAM, Storage) into different execution environments. \\
 \begin{description}[labelsep=0pt]
     \item[] \textbf{Host} underlying HW system. \textbf{Hypervisor/VM Manager} provides interface identical to host. \textbf{Guest}
-    \item[History] \hspace{2pt} \textbf{Multicomputer Model} Each computer provides different service (+ reliable, isolation (sandboxing), - Maintenance, Scalability) \textbf{Virtualization} overcomes limitations. run multiple OS on one machine, Prototyping, support checkpointing and VM Migration. %TODO: checkpointing, vm migration ?
+    \item[History] \hspace{2pt} \textbf{Multicomputer Model} Each computer provides different service (+ reliable, isolation (sandboxing), - Maintenance, Scalability) \textbf{Virtualization} overcomes limitations. run multiple OS on one machine, Prototyping, support checkpointing and VM Migration.
 \end{description}
 \begin{description}
     \item[Implementation of Hypervisors]:
         \begin{itemize}[label={}, labelsep=0pt]
-        \item \textbf{Type 0}: HW-based solutions, support VM creation and management through \textit{firmware} (VMM itself is encoded in firmware and loaded at boot-time) %limited features bc HW
+        \item \textbf{Type 0}: HW-based solutions, support VM creation and management through \textit{firmware} (VMM itself is encoded in firmware and loaded at boot-time) %NOTE: limited features bc HW
         \item \textbf{Type 1}: OS-like software or OS's, VMM runs in kernel mode (ex: Windows HyperV, ..), common in data centers, live migrations (balance performance, efficiency), snapshots, cloning.
-        \item \textbf{Type 2}: applications that run on standard OS (VMM is a P), limited hw feature exploitation. (ex: VirtualBox) %TODO: evt. add comparison picture type 1 & type 2
+        \item \textbf{Type 2}: applications that run on standard OS (VMM is a P), limited hw feature exploitation. (ex: VirtualBox)
         \item \textbf{Emulators}: allow apps written in one system architecture to run on different system arch.
         \item \textbf{Programming Environment Virtualization}: no virtualization of real HW, but creation of optimized virtual system (ex: .NET, JVM)
         \item \textbf{Paravirtualization}: avoids causing traps by modifying guest OS source code
@@ -19,7 +19,7 @@ Abstract the HW of a single computer (CPU, RAM, Storage) into different executio
 \subsection*{Building Blocks}
 Exact Duplicate of HW difficult to provide (esp. with dual-mode operation (kernel/user mode))
 \begin{description}
-    \item[VCPU]Virtual CPU to represent the state of CPU per guest (as guest believes it to be).  %does not execute code, information from VCPU used during context-switches
+    \item[VCPU]Virtual CPU to represent the state of CPU per guest (as guest believes it to be).  %NOTE: does not execute code, information from VCPU used during context-switches
     \item[Trap-and-emulate] virtual user mode and virtual kernel mode (guest runs in physical user mode). privileged instruction (ex. sys calls) $\rightarrow$ trap to VMM $\rightarrow$ VMM emulates action $\rightarrow$ return control to guest (kernel mode slower $\rightarrow$ hw support)
     \item[Binary Translation] For CPUs that do not cleanly differentiate privileged instructions. VCPU in user mode $\rightarrow$  run instructions natively. VCPU in kernel mode $\rightarrow$ inspect next few instructions, \textit{Special Instructions} are translated and executed.
     \item[Hardware Support]enables more stable, faster and feature rich virtualization. more CPU modes, HW support for Nested Page Tables, DMA, interrupts (ex: Intel VT-x, AMD: AMD-V)
@@ -28,7 +28,7 @@ Exact Duplicate of HW difficult to provide (esp. with dual-mode operation (kerne
 \subsection*{Virtualization and OS Components}
 How do VMMs provide core OS-functions ?
 \begin{description}
-    \item[CPU Scheduling]VMM acts like multiprocessor system, schedules phys. CPU to VCPUs (using algos). %2 scenarios: enough CPUs, Overcommited, can cause clock drift
+    \item[CPU Scheduling]VMM acts like multiprocessor system, schedules phys. CPU to VCPUs (using algos). 2 scenarios: enough CPUs or Overcommited %NOTE: can cause clock drift
     \item[Overcommitment]Guests are configured to use more CPUs/Mem than physically available.
     \item[Memory Management] More Users of Mem $\rightarrow$ more pressure. Overcommitment common. VMM maintains \textbf{Nested Page Table} that translates guest page to real page table. (optimize without user knowing, own page-replacement-algos)
     \item[Storage Management] need to provide boot disk \& general data access. (support many guests, so partitioning not sufficient)

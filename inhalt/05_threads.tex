@@ -41,6 +41,6 @@
   \item[Signal handling] (Signals are event based messages to a P) Problem: Where should a signal be delivered for a multithreaded P? Either same T is informed (sync), all Ts (async) or special signal T
   \item[Asynchronous cancellation] T terminates immediately
   \item[Deferred cancellation] T periodically checks if it should terminate (recommended)
-  \item[Lightweight Process] A data structure between kernel and user Ts to manage appropriate number of kernel Ts allocated to app.
+  \item[Lightweight Process]data structure between KTs and UTs to manage appropriate nr of KTs allocated to app.
   \item[Scheduler activations] provide upcalls - a communication mechanism from the kernel to the app, to inform the app about events.
 \end{description}

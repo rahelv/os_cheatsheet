@@ -7,11 +7,11 @@ Abstracts main mem into an extremely large, uniform array of storage (LAS > PAS)
     $\rightarrow$ no free frame? \textbf{Page Replacement}: select victim frame (requires 2 page transfers: page-out victim and page-in desired page, overhead can be reduced by using modify/dirty bit) %NOTE: Page replacement and Demand paging complete separation between physical and virtual mem
     \item[Page Replacement Algorithms] Decide which pages are replaced, reduce page-fault rate (nr of page faults minimally decreases with more frames). \textbf{FIFO}: oldest page replaced (doesn't say anything about usage of page), suffers from \textbf{Belady's anomaly}: Adding more frames can increase the number of page faults. \textbf{Optimal algorithm}: Replace the page that will not be used for the longest period of time. not possible in practice bc it  requires future knowledge. \textbf{LRU}: least recently used, replace page that has not been used the longest time.
     \item[Allocation of Frames]How many frames are given to each P? \textbf{Fixed Allocation}: equal or proportional to P size. \textbf{Priority Allocation}: proportional to priority (sometimes &size). \\
-        \textbf{Replacement}: select replacement frame from the set of all frames (\textbf{global}, no keeping track of which P replaced pages belong to) vs. own set of frames (\textbf{local}).
-        %global: P execution time can vary greatly, greater throughput (more common). local: more consistent per-process performance, but possibly underutilized mem TODO: Numa S. 44
+        \textbf{Replacement}: select replacement frame from the set of all frames (\textbf{global}, no keeping track of which P replaced pages belong to) vs. own set of frames (\textbf{local}). global: P execution time can vary greatly, greater throughput (more common). local: more consistent per-process performance, but possibly underutilized mem. % TODO: Numa S. 44
     \item[Thrashing] P does not have enough frames to support the pages in the working set $\rightarrow$ high page-fault rate $\rightarrow$ low CPU utilization $\rightarrow$ OS increases multiprog (with global r. alg.) $\rightarrow$ more thrashing
     \begin{itemize}
+        \item \textbf{Working Set Model}: model of memory access based on tracking the set of most recently accessed pages to control thrashing, assumes locality.
         \item \textbf{Locality}: set of pages that are actively used together by a P.
         \item \textbf{Locality Model}: all progs will exhibit a basic patterned mem reference structure, page-faults occur only when it changes locality (of mem-reference). Thr. occurs when sum of locality sizes > total phys. mem, can be limited by using local replacement algo, or simply providing enough mem.
-    \end{itemize} %TODO: Working Set Model, ev. OS Examples ?
+    \end{itemize} %NOTE: Linux uses demand paging and global replacement policy
 \end{description}
